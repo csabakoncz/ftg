@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>FTG Exercises</title>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
+    <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+    <script src="app.js"></script>
+  </head>
+
+  <body>
+
+    <!-- Templates -->
+     <script type="text/template" id="entityTemplate">
+      <b><%- title %></b>: <%- content %>
+      (<a href="#" class="delete-entity">Delete</a>)
+      
+    </script>
+
+    <a href='../index.html'>Back to front page</a><p/>
+    
+    <div class='new-entity' style='border: 1px'>
+    Title:<input class='title' type='text'/>
+    <br>
+    Content:<textarea class='content'></textarea>
+    <br>
+    <input class='create-new' type='button' value='Create new Exercise'/>
+    </div>
+    
+    <div id='title'>
+    </div>
+    <ol id='entityList'>        
+    </ol>
+
+
+  <script type="text/javascript">
+  var main=function(){
+    ftg_parseInit()
+    
+    $('#title').append($('<h1>Exercises</h1>')[0])
+  
+  var entityName='Exercise'
+  //fields with default values:
+  var entityFields={'title':'','content':''}
+  var entityTemplate='#entityTemplate'
+  var newEntityEl='.new-entity'
+  var entityListEl='#entityList'
+  
+  ftg_scaffold(entityName, entityFields, entityTemplate, entityListEl, newEntityEl)
+  
+                   
+  }
+  $(main)
+  </script>
+  </body>
+
+</html>
