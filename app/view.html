@@ -18,7 +18,8 @@
 			
 			ftg_parseInit()
 
-			var exId='pokgmohEjB' //get the exId from the query string
+			//var exId='pokgmohEjB' //get the exId from the query string
+			var exId = location.search.replace('?','')
 			
 			var Exercise = Parse.Object.extend('Exercise')
 			var q = new Parse.Query(Exercise)
