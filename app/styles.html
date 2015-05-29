@@ -13,7 +13,8 @@
 
     <!-- Templates -->
      <script type="text/template" id="entityTemplate">
-      <b><%- name %></b>: <%- content %>
+      <b><%- name %></b>: <% //content %>
+      (<a href="#" class="edit-entity">Edit</a>)
       (<a href="#" class="delete-entity">Delete</a>)
       
     </script>
@@ -28,6 +29,14 @@
     <input class='create-new' type='button' value='Create new Style'/>
     </div>
     
+    <div class='tpl-edited-entity' style='border: 1px;display:none;'>
+		Name:<input class='name' type='text' /> <br> Content:
+		<textarea class='content'></textarea>
+		<br> 
+		<input class='save' type='button' value='Save' />
+		<input class='cancel' type='button' value='Cancel' />
+	</div>
+	    
     <h1>Styles</h1>
     
     <ol id='entityList'>        
