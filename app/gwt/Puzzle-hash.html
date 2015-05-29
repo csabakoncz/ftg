@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <!--                                                               -->
+    <!-- Consider inlining CSS to reduce the number of requested files -->
+    <!--                                                               -->
+    <link type="text/css" rel="stylesheet" href="Puzzle.css">
+
+    <title>Fill-the-gap exercise</title>
+
+  </head>
+
+  <body>
+    
+    <!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
+    <noscript>
+      <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
+        Your web browser must have JavaScript enabled
+        in order for this application to display correctly.
+      </div>
+    </noscript>
+
+	<img src="ajax-loader.gif" id="loadingIndicator" style="position: absolute;left: 50%; top:50%"></img>
+	
+	<div id="text" style="display: none;">
+Quo usque tandem #abutere#, Catilina, patientia nostra? Quam diu etiam #furor# iste tuus nos eludet? Quem ad finem sese effrenata iactabit #audacia#?
+<p></p>
+Nihilne te nocturnum praesidium #Palati#, nihil urbis vigiliae, nihil timor #populi#, nihil concursus bonorum omnium, nihil hic munitissimus habendi #senatus# locus, nihil horum ora voltusque moverunt?
+	</div>
+	
+	<div id="choicesPanel" class="choicesPanel"></div>
+	<div id="puzzleArea" class="puzzleArea"></div>
+	<button id="checkButton">Check result</button>
+	
+	<div id="dialogTitle" style="display: none;">Evaluation</div>
+	<div id="dialogOK" style="display: none;">OK</div>
+	<div id="correctMsg" style="display: none;">Correct!</div>
+	<div id="errorsMsg"  style="display: none;">{0} errors</div>
+	<div id="errorsAndUnfilledMsg"  style="display: none;">{0} errors, {1} unfilled</div>
+	<div id="unfilledMsg"  style="display: none;">{0} unfilled</div>
+
+    <script type="text/javascript" language="javascript" src="ftg/ftg.nocache.js"></script>	
+  </body>
+</html>

@@ -1,0 +1,40 @@
+/** Add css rules here for your application. */
+
+
+/** Set ids using widget.getElement().setId("idOfElement") */
+body{
+	font-size: large;
+}
+
+.choicesPanel{
+	border-style: solid;
+	padding: 1em;
+}
+
+.puzzleArea{
+	border-style: solid;
+	padding: 1em;
+}
+.gapPanel{
+	border-bottom-style: dashed;
+	border-bottom-width: 2px;
+}
+
+.correctWord{
+	color: blue;
+}
+
+.choiceWord{
+	margin-right: 1em;
+}
+
+.incorrectWord{
+	color: red;
+}
+
+.guessedWord{
+	position:absolute;
+	left:0px;
+	right:0px;
+	text-align:center;
+}
