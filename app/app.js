@@ -56,13 +56,18 @@ function ftg_scaffold(entityName, entityFields, entityTemplate, entityListEl,
 		},
 
 		editEntity : function() {
+			if (appState.currentEditView) {
+				appState.currentEditView.clearForm()
+			}
+			
+			$('.tpl-edited-entity').clone()
+			.removeClass('tpl-edited-entity').addClass('edited-entity')
+			.show().insertAfter('.tpl-edited-entity')
+			
 			var ev = new EntityEditView({
 				model : this.model
 			})
 
-			if (appState.currentEditView) {
-				appState.currentEditView.clearForm()
-			}
 			appState.currentEditView = ev
 
 			ev.render()
@@ -92,8 +97,6 @@ function ftg_scaffold(entityName, entityFields, entityTemplate, entityListEl,
 
 			this.model.set(data)
 			this.model.save()
-
-			this.clearForm();
 		},
 
 		render : function() {
@@ -105,12 +108,8 @@ function ftg_scaffold(entityName, entityFields, entityTemplate, entityListEl,
 		},
 
 		clearForm : function() {
-			for ( var field in entityFields) {
-				var inputFieldCls = '.' + field
-				this.$(inputFieldCls).val('')
-			}
 			
-			this.off()
+			this.remove()
 			
 			appState.currentEditView = null
 		}
