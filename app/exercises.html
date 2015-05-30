@@ -14,10 +14,12 @@
 
 	<!-- Templates -->
 	<script type="text/template" id="entityTemplate">
-      <b><%- title %></b>: <% //content %>
+      <b><%- data.title %></b>: <% //data.content %>
       (<a href="#" class="edit-entity">Edit</a>)
 	  (<a href="#" class="delete-entity">Delete</a>)
-	  (<a href="view.html?<%- objectId %>">View</a>)
+	<% if(data.objectId){ %>
+	  (<a href="view.html?<%- data.objectId %>">View</a>)
+    <% } %>
       
     </script>
 

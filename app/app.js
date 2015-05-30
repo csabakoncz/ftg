@@ -28,7 +28,7 @@ function ftg_scaffold(entityName, entityFields, entityTemplate, entityListEl,
 
 	var EntityView = Parse.View.extend({
 		tagName : "li",
-		template : _.template($(entityTemplate).html()),
+		template : _.template($(entityTemplate).html(),null,{variable:'data'}),
 
 		// The DOM events specific to an item.
 		events : {
