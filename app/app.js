@@ -91,8 +91,11 @@ function ftg_scaffold(entityName, entityFields, entityTemplate, entityListEl,
 			var data = {}
 			for ( var field in entityFields) {
 				var inputFieldCls = '.' + field
-				var value = this.$(inputFieldCls).val()
-				data[field] = value
+				var inputField = this.$(inputFieldCls)
+				if(inputField.length>0){
+					var value = inputField.val()
+				     data[field] = value
+				}
 			}
 
 			this.model.set(data)
@@ -102,7 +105,10 @@ function ftg_scaffold(entityName, entityFields, entityTemplate, entityListEl,
 		render : function() {
 			for ( var field in entityFields) {
 				var inputFieldCls = '.' + field
-				this.$(inputFieldCls).val(this.model.get(field))
+				var inputField = this.$(inputFieldCls)
+				if(inputField.length>0){
+					inputField.val(this.model.get(field))
+				}
 			}
 			return this;
 		},
@@ -152,8 +158,11 @@ function ftg_scaffold(entityName, entityFields, entityTemplate, entityListEl,
 			var data = {}
 			for ( var field in entityFields) {
 				var inputFieldCls = '.' + field
-				var value = this.$(inputFieldCls).val()
-				data[field] = value
+				var inputField = this.$(inputFieldCls)
+				if(inputField.length>0){
+					var value = inputField.val()
+					data[field] = value
+				}
 			}
 
 			this.exList.create(data);

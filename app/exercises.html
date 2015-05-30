@@ -56,11 +56,22 @@
 
 			$('#title').append($('<h1>Exercises</h1>')[0])
 
+			var Template = Parse.Object.extend('Template')
+			var Style = Parse.Object.extend('Style')
+			
+			var defaultTemplate = new Template()
+			defaultTemplate.id = 'ujwBX8CV41'
+			
+			var defaultStyle = new Style()
+			defaultStyle.id = 'Y26RQhPMtr'
+			
 			var entityName = 'Exercise'
 			//fields with default values:
 			var entityFields = {
 				'title' : '',
-				'content' : ''
+				'content' : '',
+				'template': defaultTemplate,
+				'style': defaultStyle
 			}
 			
 			var entityTemplate = '#entityTemplate'
