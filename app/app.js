@@ -94,6 +94,14 @@ function ftg_scaffold(entityName, entityFields, entityTemplate, entityListEl,
 				var inputField = this.$(inputFieldCls)
 				if(inputField.length>0){
 					var value = inputField.val()
+					
+					var defaultValue=entityFields[field]
+					//check if the field is an entity
+					if(defaultValue.className){
+						var newEntity= new defaultValue.constructor
+						newEntity.id=value
+						value=newEntity
+					}
 				     data[field] = value
 				}
 			}
@@ -107,7 +115,11 @@ function ftg_scaffold(entityName, entityFields, entityTemplate, entityListEl,
 				var inputFieldCls = '.' + field
 				var inputField = this.$(inputFieldCls)
 				if(inputField.length>0){
-					inputField.val(this.model.get(field))
+					var modelValue=this.model.get(field)
+					if(modelValue.className){
+						modelValue=modelValue.id
+					}
+					inputField.val(modelValue)
 				}
 			}
 			return this;
@@ -161,6 +173,15 @@ function ftg_scaffold(entityName, entityFields, entityTemplate, entityListEl,
 				var inputField = this.$(inputFieldCls)
 				if(inputField.length>0){
 					var value = inputField.val()
+					
+					var defaultValue=entityFields[field]
+					//check if the field is an entity
+					if(defaultValue.className){
+						var newEntity= new defaultValue.constructor
+						newEntity.id=value
+						value=newEntity
+					}
+					
 					data[field] = value
 				}
 			}

@@ -30,15 +30,24 @@
 		Title:<input class='title' type='text' /> 
 		<br> Content:
 		<textarea class='content'></textarea>
-		<br> 
+		<br/> 
+		Template: <select class='template'></select>
+		<br/>
+		Style: <select class='style'></select>	
+			
 		<input class='create-new' type='button'
 			value='Create new Exercise' />
+
 	</div>
 	
 	<div class='tpl-edited-entity' style='border: 1px;display:none;'>
 		Title:<input class='title' type='text' /> <br> Content:
 		<textarea class='content'></textarea>
-		<br> 
+		<br/> 
+		Template: <select class='template'></select>
+		<br/>
+				Style: <select class='style'></select>
+		<br/>
 		<input class='save' type='button' value='Save' />
 		<input class='cancel' type='button' value='Cancel' />
 	</div>
@@ -60,10 +69,10 @@
 			var Style = Parse.Object.extend('Style')
 			
 			var defaultTemplate = new Template()
-			defaultTemplate.id = 'ujwBX8CV41'
+			//defaultTemplate.id = 'ujwBX8CV41'
 			
 			var defaultStyle = new Style()
-			defaultStyle.id = 'Y26RQhPMtr'
+			//defaultStyle.id = 'Y26RQhPMtr'
 			
 			var entityName = 'Exercise'
 			//fields with default values:
@@ -80,6 +89,43 @@
 
 			ftg_scaffold(entityName, entityFields, entityTemplate,
 					entityListEl, newEntityEl)
+					
+			var retrieveOptions=function(entityClass, selectElementClass){
+
+				var EntitiesListView = Parse.View.extend({
+					initialize : function() {
+						_.bindAll(this, 'addAll')
+						var EntityList = Parse.Collection.extend({model:entityClass})
+						this.tList = new EntityList()
+						this.tList.bind('reset', this.addAll)
+						
+						//fetch only the name:
+						query = new Parse.Query(entityClass)
+						query.select('name')
+						this.tList.query=query
+						this.tList.fetch()
+					},
+		
+					addOne : function(entity) {
+						var objectId=entity.id
+						var title=entity.get('name')
+						
+						var optElement='<option value="'+objectId+'" label="'+title+'"/>'
+						$('.new-entity .'+selectElementClass).append(optElement)
+						$('.tpl-edited-entity .'+selectElementClass).append(optElement)
+					},
+		
+					addAll : function() {
+						this.tList.each(this.addOne)
+					},
+				})
+				
+				new EntitiesListView()
+			}
+			
+			retrieveOptions(Template, 'template')
+			retrieveOptions(Style, 'style')
+			
 
 		}
 		$(main)
