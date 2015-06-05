@@ -186,7 +186,7 @@ function ftg_scaffold(entityName, entityFields, entityTemplate, entityListEl,
 				}
 			}
 
-			this.exList.create(data);
+			this.exList.create(data,{wait:true});
 		}
 	})
 
