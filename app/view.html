@@ -42,8 +42,9 @@
 				puzzleDiv.html(object.get('content'))
 				$('body').append(puzzleDiv)
 				
-				var template = $(object.get('template').get('content'))
-				$('body').append(template)
+				var template = _.template(object.get('template').get('content'))
+				var templateResultDOM=$(template(object.attributes))
+				$('body').append(templateResultDOM)
 				
 			    gwtBootStrap=$('<script type="text/javascript" language="javascript" src="gwt/ftg/ftg.nocache.js" />')
 				
