@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>FTG Login</title>
+    <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
+    <script src="https://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+    <script src="app/app.js"></script>
+  </head>
+
+  <body>
+
+    <script type="text/template" id="user">
+      <div id="user-info">
+      <% if(Parse.User.current()){ %>
+        Signed in as <%= Parse.User.current().escape("username") %> (<a href="#" class="log-out">Log out</a>)
+      <% } else { %>
+      Anonymous
+      <p/>
+      Username: <input type='text' class='input-user' />
+      <p/>
+      Password: <input type='password' class='input-password'/>
+      <p/>
+      <input class='login' type='button' value='Log in'/>
+      <% } %>  
+      </div>
+    </script>
+    
+    <div class='user'>
+    </div>
+    
+   <a href='app/exercises.html'>Exercises</a><p/>
+   <a href='app/templates.html'>Templates</a><p/>
+   <a href='app/styles.html'>Styles</a><p/>
+
+  <script type="text/javascript">
+  var main=function(){
+  
+  ftg_parseInit()
+  
+  var UserView=Parse.View.extend({
+    
+    el:'.user',
+    template: _.template($('#user').html()),
+    
+    events: {
+      "click .log-out":  "logOut",
+      'click .login': 'logIn',
+      'keypress .input-user':'logInOnEnter',
+      'keypress .input-password':'logInOnEnter'
+    },
+    
+    initialize:function(){
+      _.bindAll(this, 'logOut','logIn','render','logInOnEnter')
+    
+    },
+    logOut:function(){
+        Parse.User.logOut();
+		this.render()
+    },
+    render:function(){
+      $(this.el).html(this.template({}));
+      return this;
+    },
+    logIn:function(){
+      var username=this.$('.input-user').val()
+      var password=this.$('.input-password').val()
+      
+      Parse.User.logIn(username,password,
+      {
+        error:function(user,error){
+          console.log(error)
+          alert('Error logging in: code:'+error.code+', message: '+error.message)
+        },
+        success:this.render
+        
+      })
+      
+    },
+    logInOnEnter:function(e){
+      if (e.keyCode != 13) return;
+      this.logIn()
+    }
+  })
+  
+  userView = new UserView()
+  userView.render()
+
+  }
+  $(main)
+  </script>
+  </body>
+
+</html>
