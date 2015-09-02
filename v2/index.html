@@ -14,16 +14,17 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js"></script>
+<!--     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
     <script src="app.js"></script>
   </head>
 
 	<body>
 		<ul>
-			<li><a href='#/home'>/home</a>
-			<li><a href='#/a'>/a</a>
-			<li><a href='#/b'>/b</a>
+			<li><a ui-sref='home'>/home</a>
+			<li><a ui-sref='a'>/a</a>
+			<li><a ui-sref='b'>/b</a>
 		</ul>
-		<div ng-view></div>
+		<div ui-view></div>
 	</body>
 </html>

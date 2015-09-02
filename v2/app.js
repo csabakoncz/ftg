@@ -1,5 +1,5 @@
 (function(){
-    var module = angular.module('app',['ngRoute']);
+    var module = angular.module('app',['ui.router']);
     
     module.controller('testCtrl',function($scope){
       $scope.testValue = 'Alma!!!';  
@@ -13,23 +13,25 @@
         $scope.testValue = 'BBB!!!';  
     });
     
-    module.config(function($routeProvider){
-       $routeProvider.
-       when('/home',{
+    module.config(function($stateProvider,  $urlRouterProvider){
+       $stateProvider.
+       state('home',{
+           url:'/home',
            templateUrl:'template.html',
            controller:'testCtrl'
        }).
-       when('/a',{
+       state('a',{
+           url:'/a',
            templateUrl:'template.html',
            controller:'testCtrlA'
        }).
-       when('/b',{
+       state('b',{
+           url:'/b',
            templateUrl:'template.html',
            controller:'testCtrlB'
-       }).
-       otherwise({
-           redirectTo: '/home'
-       });
+       })
+       
+       $urlRouterProvider.otherwise('/home');
     });
     
 })()
