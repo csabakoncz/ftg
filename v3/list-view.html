@@ -1,0 +1,12 @@
+<a ui-sref='.new' class='btn btn-info'>Create new</a>
+<div class="row">
+    <div class="col-xs-3">
+        <div ng-repeat="item in items"><a ui-sref='.edit({itemId: item.id})'>{{item.id}}</a></div>
+    </div>
+    
+    <div class="col-xs-9">
+        <ui-view/>
+    </div>
+
+    
+</div>
