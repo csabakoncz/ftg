@@ -1,4 +1,4 @@
-var routerApp = angular.module('routerApp', ['ui.router']);
+var routerApp = angular.module('routerApp', ['ui.router','ui.bootstrap']);
 
 routerApp.config(function($stateProvider, $urlRouterProvider) {
     
@@ -18,7 +18,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('exercise.edit', {
             url: '/{itemId}',
-            template: 'Edit edit with itemId={{itemId}}',
+            templateUrl: 'exercise-edit.html',
             controller:'editExerciseCtrl'
         })
         .state('style', {
@@ -33,7 +33,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('style.edit', {
             url: '/{itemId}',
-            template: 'Edit edit with itemId={{itemId}}</div>',
+            templateUrl: 'style-edit.html',
             controller: 'editStyleCtrl'
         })
         .state('template', {
@@ -48,7 +48,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('template.edit', {
             url: '/{itemId}',
-            template: 'Edit with itemId={{itemId}}</div>',
+            templateUrl: 'template-edit.html',
             controller: 'editTemplateCtrl'
         })
         .state('user', {
@@ -81,36 +81,54 @@ routerApp.controller('statusCtrl',function($scope){
 });
 
 routerApp.controller('exerciseCtrl',function($scope){
-    $scope.items=[{id:'E1'},{id:'E2'}, {id:'E3'}];
+    $scope.items=[];
+    for(var i=0; i<30; i++){
+        $scope.items.push({id:'E-'+i,title:'Exercise-'+i});
+    }
 });
-routerApp.controller('editExerciseCtrl',function($scope, $stateParams){
+
+var basicEditController = function($scope, $stateParams){
     $scope.itemId = $stateParams.itemId;
-});
+    $scope.editing.obj=$scope.items.find(function(item){return item.id==$scope.itemId});
+};
+
+routerApp.controller('editExerciseCtrl',basicEditController);
 
 routerApp.controller('newExerciseCtrl',function($rootScope,$scope){
 });
 
 routerApp.controller('styleCtrl',function($scope){
-    $scope.items=[{id:'S1'},{id:'S2'}, {id:'S3'},{id:'S4'}];
+    $scope.items=[];
+    for(var i=0; i<40; i++){
+        $scope.items.push({id:'S-'+i,title:'Style-'+i});
+    }
 });
 
-routerApp.controller('editStyleCtrl',function($scope, $stateParams){
-    $scope.itemId = $stateParams.itemId;
-});
+routerApp.controller('editStyleCtrl',basicEditController);
 
 routerApp.controller('newStyleCtrl',function($scope){
 });
 
 routerApp.controller('templateCtrl',function($scope){
-    $scope.items=[{id:'T1'},{id:'T2'},];
+    $scope.items=[];
+    for(var i=0; i<10; i++){
+        $scope.items.push({id:'T-'+i,title:'Template-'+i});
+    }
 });
 
-routerApp.controller('editTemplateCtrl',function($scope, $stateParams){
-    $scope.itemId = $stateParams.itemId;
-});
+routerApp.controller('editTemplateCtrl',basicEditController);
 
 routerApp.controller('newTemplateCtrl',function($scope){
 });
 routerApp.controller('userCtrl',function($scope){
     $scope.userName='Rongy Elek'
+});
+routerApp.controller('appCtrl',function($scope){
+    $scope.editing={};
+    
+    $scope.currentPage=1;
+    $scope.itemsPerPage=10;
+    $scope.pageChanged=function(){
+        console.log('paging occurred, currentPage=%s',$scope.currentPage);
+    };
 });

@@ -2,48 +2,51 @@
 <html>
 <head>
 
-    <!-- CSS (load bootstrap) -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+<!-- CSS (load bootstrap) -->
+<link rel="stylesheet"
+	href="bower_components/bootstrap/dist/css/bootstrap.css">
 
-    <script src="bower_components/underscore/underscore.js"></script>
-    <script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/underscore/underscore.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
 <!--     <script src="bower_components/jquery.ui/dist/jquery.js"></script> -->
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="bower_components/parse/parse.js"></script>
-    <script src="app.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script
+	src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/parse/parse.js"></script>
+<script src="app.js"></script>
 </head>
 
 <!-- apply our angular app to our site -->
-<body ng-app="routerApp">
+<body ng-app="routerApp" ng-controller='appCtrl'>
 
-<!-- NAVIGATION -->
-<nav class="navbar navbar-inverse" role="navigation">
-    <div class="navbar-header">
-        <a class="navbar-brand">Fill-the-gap!</a>
-    </div>
-    <ul class="nav navbar-nav">
-        <li><a ui-sref="exercise">Exercises</a></li>
-        <li><a ui-sref="style">Styles</a></li>
-        <li><a ui-sref="template">Templates</a></li>
-    </ul>
-    <ul class="nav navbar-nav pull-right">
-        <li><a ui-sref="user">User</a></li>
-    </ul>
-</nav>
+	<!-- MAIN CONTENT -->
+	<!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
+	<div class="container-fluid">
 
-<!-- MAIN CONTENT -->
-<!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
-<div class="container">
-    <div ui-view></div>
-</div>
+		<!-- NAVIGATION -->
+		<nav class="navbar navbar-inverse" role="navigation">
+			<div class="navbar-header small">
+				<a class="navbar-brand">Fill-the-gap!</a>
+			</div>
+			<ul class="nav navbar-nav small">
+				<li><a ui-sref="exercise">Exercises</a></li>
+				<li><a ui-sref="style">Styles</a></li>
+				<li><a ui-sref="template">Templates</a></li>
+			</ul>
+			<ul class="nav navbar-nav pull-right">
+				<li><a ui-sref="user">User</a></li>
+			</ul>
+		</nav>
 
-<div ng-controller='statusCtrl' ng-class="['alert', error?'alert-danger':'alert-info']">
-    {{status}}
-</div>
-</div>
+		<div ui-view></div>
+
+		<div ng-controller='statusCtrl'
+			ng-class="['alert', error?'alert-danger':'alert-info']">
+			{{status}}\
+		</div>
+	</div>
 
 </body>
 </html>
