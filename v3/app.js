@@ -83,14 +83,51 @@ routerApp.controller('statusCtrl',function($scope){
 routerApp.controller('exerciseCtrl',function($scope){
     $scope.items=[];
     for(var i=0; i<30; i++){
-        $scope.items.push({id:'E-'+i,title:'Exercise-'+i});
+        $scope.items.push({id:'E-'+i,title:'Exercise-'+i,content:''});
     }
 });
 
 var basicEditController = function($scope, $stateParams){
     $scope.itemId = $stateParams.itemId;
-    $scope.editing.obj=$scope.items.find(function(item){return item.id==$scope.itemId});
+    
+    var original = $scope.items.find(function(item){return item.id==$scope.itemId});
+
+    $scope.editing.original=original;
+    $scope.editing.obj= objCopy(original);
+
 };
+
+var objCopy = function(obj){
+    var keys = getKeys(obj);
+    var copy = {};
+    for(var i in keys){
+        var key=keys[i];
+        var value = obj[key];
+        if(false==_.isFunction(value)){
+            copy[key] = value;
+        }
+    }
+    return copy;
+}
+
+var getKeys = function(obj){
+    return _.keys(obj).filter(function(i){return !/^\$\$/.test(i)})
+}
+var objEqual = function(obj1,obj2){
+    var keys = getKeys(obj1);
+    for(var i in keys){
+        var key = keys[i];
+        var val1 = obj1[key];
+        var val2 = obj2[key];
+        if(val1 == val2){
+            continue;
+        }
+        else{
+            return false;
+        }
+    }
+    return true;
+}
 
 routerApp.controller('editExerciseCtrl',basicEditController);
 
@@ -123,6 +160,15 @@ routerApp.controller('newTemplateCtrl',function($scope){
 routerApp.controller('userCtrl',function($scope){
     $scope.userName='Rongy Elek'
 });
+
+var copyOver = function(src, target){
+    var keys = getKeys(src);
+    for(var i in keys){
+        var key = keys[i];
+        target[key] = src[key];
+    }
+}
+
 routerApp.controller('appCtrl',function($scope){
     $scope.editing={};
     
@@ -131,4 +177,15 @@ routerApp.controller('appCtrl',function($scope){
     $scope.pageChanged=function(){
         console.log('paging occurred, currentPage=%s',$scope.currentPage);
     };
+    $scope.save = function(){
+        copyOver($scope.editing.obj,$scope.editing.original);
+        $scope.saveDisabled = true;
+    }
+
+    $scope.saveDisabled = true;
+    $scope.editingChange = function(){
+        //compare the starting and current value
+        $scope.saveDisabled = objEqual($scope.editing.obj,$scope.editing.original);
+        console.log('saveDisabled=%s',$scope.saveDisabled);
+    }
 });
