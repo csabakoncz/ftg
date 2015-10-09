@@ -1,6 +1,7 @@
 define([ '../ngmodule' ], function(appModule) {
     appModule.controller('appController', function($scope, entityConfig) {
 
+        $scope.entityConfig = entityConfig;
         $scope.entities = entityConfig.entities;
 
         $scope.editing = {};

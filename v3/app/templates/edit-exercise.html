@@ -1,0 +1,38 @@
+
+<a class='btn btn-info' ng-click='duplicateItem()'>Duplicate</a>
+<a class='btn btn-danger' ng-click='deleteItem()'>Delete</a>
+
+<div class='panel panel-primary'>
+	<div class='panel-body'>
+
+		<form name='editForm'>
+			<div class="form-group">
+				<label for="objTitle" class="control-label">Title</label> <input
+					type="text" class="form-control" id="objTitle"
+					ng-model='editing.obj.title'></input>
+			</div>
+			<div class="form-group">
+				<label for="objContent" class="control-label">Content</label>
+				<textarea class="form-control" id="objContent" rows="12"
+					ng-model='editing.obj.content' ng-change='editingChange()'></textarea>
+			</div>
+			<div class="form-group">
+				<label for="objStyle" class="control-label">Style</label>
+				<select class="form-control" id="objStyle" ng-model='editing.obj.style' ng-change='editingChange()'>
+					<option ng-repeat='style in entityConfig.style.items' value='{{style.id}}' label='{{style.title}}'/>
+				</select>
+				<a ui-sref='style.edit({itemId: editing.obj.style})' ng-hide='!editing.obj.style' class='pull-right'>See it</a>
+			</div>
+			<div class="form-group">
+				<label for="objTemplate" class="control-label">Template</label>
+				<select class="form-control" id="objTemplate" ng-model='editing.obj.template' ng-change='editingChange()'>
+					<option ng-repeat='template in entityConfig.template.items' value='{{template.id}}' label='{{template.title}}'/>
+				</select>
+				<a ui-sref='template.edit({itemId: editing.obj.template})' ng-hide='!editing.obj.template' class='pull-right'>See it</a>
+			</div>
+			
+			<button type="button" class="btn btn-primary" ng-click='save()'
+				ng-disabled='saveDisabled'>Save</button>
+		</form>
+	</div>
+</div>

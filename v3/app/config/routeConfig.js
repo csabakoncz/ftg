@@ -3,8 +3,8 @@ define([ '../ngmodule' ], function(appModule) {
     appModule.config(function(entityConfig, $stateProvider, $urlRouterProvider) {
         var firstEntity = entityConfig.entities[0].name
         $urlRouterProvider.otherwise('/' + firstEntity);
-        
-        $stateProvider.state('user',{
+
+        $stateProvider.state('user', {
             url : '/user',
             templateUrl : 'app/templates/user.html',
             controller : 'userController',
@@ -20,6 +20,13 @@ define([ '../ngmodule' ], function(appModule) {
             var newState = createNewState(entity);
             var editState = createEditState(entity);
 
+            // change the Exercise states:
+            if (entity.name == 'exercise') {
+                var exerciseTemplate = 'app/templates/edit-exercise.html';
+                newState.templateUrl = exerciseTemplate;
+                editState.templateUrl = exerciseTemplate;
+            }
+            
             $stateProvider.state(entityListState, listState);
             $stateProvider.state(entityNewState, newState);
             $stateProvider.state(entityEditState, editState);
@@ -46,7 +53,7 @@ define([ '../ngmodule' ], function(appModule) {
     var createNewState = function(entity) {
         return {
             url : '/new',
-//            templateUrl : 'app/templates/new.html',
+            // templateUrl : 'app/templates/new.html',
             templateUrl : 'app/templates/edit.html',
             controller : entity.name + 'NewController',
         };
