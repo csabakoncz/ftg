@@ -3,9 +3,12 @@ define([ '../ngmodule' ], function(appModule) {
 
         $scope.entityConfig = entityConfig;
         $scope.entities = entityConfig.entities;
-
+        
         $scope.editing = {};
 
+        $scope.previewWidth=400;
+        $scope.previewHeight=400;
+        
         $scope.statusInfo = function(msg) {
             $scope.error = false;
             $scope.status = msg;
