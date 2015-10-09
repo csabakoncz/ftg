@@ -1,4 +1,11 @@
-<a ui-sref='.new' class='btn btn-info'>Create new</a>
+<div class="row">
+	<div class="col-xs-3">
+		<a ui-sref='.new' class='btn btn-success' ng-click='createNew()'>Create new</a>
+	</div>
+	<div class="col-xs-9">
+	</div>
+</div>
+
 <div class="row">
 	<div class="col-xs-3">
 		
@@ -7,7 +14,7 @@
 		<div ng-repeat="item in items.slice((currentPage-1)*itemsPerPage,currentPage*itemsPerPage)"><a ui-sref='.edit({itemId: item.id})'>{{item.id}}</a></div> 
 		-->
 		
-		<div class='panel panel-info'>
+		<div class='panel panel-default'>
 			<div class='panel-body'>
 				<div ng-repeat="item in items">
 					<a ui-sref='.edit({itemId: item.id})'>{{item.title}}</a>
@@ -16,11 +23,7 @@
 		</div>
 	</div>
 	<div class="col-xs-9">
-		<div class='panel panel-info'>
-			<div class='panel-body'>
-				<ui-view />
-			</div>
-		</div>
+		<ui-view />
 	</div>
 </div>
 <div class="row">

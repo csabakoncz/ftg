@@ -1,28 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<!-- CSS (load bootstrap) -->
-<link rel="stylesheet"
+	<link rel="stylesheet"
 	href="bower_components/bootstrap/dist/css/bootstrap.css">
-
-<script src="bower_components/underscore/underscore.js"></script>
-<script src="bower_components/jquery/dist/jquery.js"></script>
-<!--     <script src="bower_components/jquery.ui/dist/jquery.js"></script> -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script src="bower_components/angular/angular.js"></script>
-<script
-	src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<script src="bower_components/parse/parse.js"></script>
-<script src="app.js"></script>
 </head>
 
-<!-- apply our angular app to our site -->
-<body ng-app="routerApp" ng-controller='appCtrl'>
+<body ng-controller='appController'>
 
-	<!-- MAIN CONTENT -->
-	<!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
 	<div class="container-fluid">
 
 		<!-- NAVIGATION -->
@@ -31,9 +15,7 @@
 				<a class="navbar-brand">Fill-the-gap!</a>
 			</div>
 			<ul class="nav navbar-nav small">
-				<li><a ui-sref="exercise">Exercises</a></li>
-				<li><a ui-sref="style">Styles</a></li>
-				<li><a ui-sref="template">Templates</a></li>
+				<li ng-repeat='entity in entities'><a ui-sref="{{entity.name}}">{{entity.name|capitalize}}</a></li>
 			</ul>
 			<ul class="nav navbar-nav pull-right">
 				<li><a ui-sref="user">User</a></li>
@@ -42,12 +24,13 @@
 
 		<div ui-view></div>
 
-		<div ng-controller='statusCtrl'
-			ng-class="['alert', error?'alert-danger':'alert-info']">
+		<div ng-class="['alert', error?'alert-danger':'alert-info']">
 			<div class="glyphicon glyphicon-info-sign"></div>
 			{{status}}
 		</div>
 	</div>
 
+	<script src="bower_components/requirejs/require.js" data-main='app/require-config.js' ></script>
+	
 </body>
 </html>

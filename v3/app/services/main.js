@@ -1,0 +1,3 @@
+define([ './capitalizeService','./objectService' ], function() {
+
+});
