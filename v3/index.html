@@ -18,7 +18,7 @@
 				<li ng-repeat='entity in entities'><a ui-sref="{{entity.name}}">{{entity.name|capitalize}}</a></li>
 			</ul>
 			<ul class="nav navbar-nav pull-right">
-				<li><a ui-sref="user">User</a></li>
+				<li><a ui-sref="user">User: {{appUserInfo.username}}</a></li>
 			</ul>
 		</nav>
 

@@ -1,8 +1,20 @@
 define([ '../ngmodule' ], function(appModule) {
-    appModule.controller('appController', function($scope, entityConfig) {
+    appModule.controller('appController', function($scope, entityConfig, userService) {
 
         $scope.entityConfig = entityConfig;
         $scope.entities = entityConfig.entities;
+        
+        $scope.appUserInfo={};
+        
+        $scope.updateUserInfo=function(){
+            userService.updateUserInfo($scope.appUserInfo);
+        }
+
+        //this function is used as a Parse callback, too
+        $scope.updateUserInfoNonAngular=function(){
+            $scope.$apply($scope.updateUserInfo);
+        }
+        $scope.updateUserInfo();
         
         $scope.editing = {};
 

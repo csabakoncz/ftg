@@ -1,2 +1,2 @@
-define([ './entityConfig', './routeConfig','./exceptionHandlerConfig' ], function() {
+define([ './entityConfig', './routeConfig','./exceptionHandlerConfig','./parseConfig' ], function() {
 })
