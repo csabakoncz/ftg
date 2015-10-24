@@ -1,6 +1,8 @@
 define([ '../ngmodule' ], function(appModule) {
-    appModule.controller('appController', function($scope, entityConfig, userService) {
+    appModule.controller('appController', function($scope, entityConfig, userService, loggerService) {
 
+        loggerService.scope = $scope;
+        
         $scope.entityConfig = entityConfig;
         $scope.entities = entityConfig.entities;
         

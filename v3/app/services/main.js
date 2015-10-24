@@ -1,3 +1,3 @@
-define([ './capitalizeService','./objectService', './userService' ], function() {
+define([ './capitalizeService','./objectService', './userService','./entityService','./loggerService' ], function() {
 
 });

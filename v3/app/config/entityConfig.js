@@ -1,22 +1,9 @@
 define([ '../ngmodule' ], function(appModule) {
 
-    var populateEntity = function(entity) {
-        entity.items = [];
-        for (var i = 0; i < 10; i++) {
-            // var entityId = entity.name + '-' + i;
-            var entityTitle = 'Title-' + entity.name + '-' + i;
-            var e = {
-                // id : entityId,
-                title : entityTitle,
-                content : ''
-            }
-            entity.addItem(e);
-        }
-    };
-
     var createEntities = function() {
-        var EntityCollection = function(name) {
+        var EntityCollection = function(name, nameProperty) {
             this.name = name;
+            this.nameProperty = nameProperty;
             this.items = [];
             this.idCounter = 0;
 
@@ -37,10 +24,16 @@ define([ '../ngmodule' ], function(appModule) {
         }
 
         var entityKinds = [ 'exercise', 'style', 'template' ];
+        
+        var nameProperty = {
+            exercise : 'title',
+            style : 'name',
+            template : 'name'
+        };
 
         var entities = [];
         entityKinds.forEach(function(name) {
-            entities.push(new EntityCollection(name));
+            entities.push(new EntityCollection(name, nameProperty[name]));
         })
 
         return entities;
@@ -48,11 +41,10 @@ define([ '../ngmodule' ], function(appModule) {
 
     var entities = createEntities();
 
-    entities.forEach(populateEntity);
-
     var entityConfig = {
         entities : entities
     }
+
     entities.forEach(function(entity) {
         entityConfig[entity.name] = entity;
     });

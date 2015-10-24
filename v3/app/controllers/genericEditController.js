@@ -1,28 +1,41 @@
 define([ '../ngmodule' ], function(appModule) {
 
-    var basicEditController = function($scope, $stateParams, objectService, $state) {
+    var basicEditController = function($scope, $stateParams, objectService, $state, entityService, entityConfig) {
         $scope.itemId = $stateParams.itemId;
         var entityKind = $scope.entityCollection.name;
 
-        var original = $scope.items.find(function(item) {
-            return item.id == $scope.itemId
-        });
-
-        var entityInfo = entityKind + '/' + $scope.itemId;
-        if (original) {
-            $scope.statusInfo('Editing entity ' + entityInfo)
-        } else {
-            $scope.statusError('Entity not found: ' + entityInfo);
-            $state.go(entityKind)
-        }
-
+        var original={};
         $scope.editing.obj = original;
+        
+        var entityInfo = entityKind + '/' + $scope.itemId;
+        
+        var successCallback = function(result){
+            $scope.$apply(function(){
+               $scope.editing.obj = result; 
+               $scope.statusInfo('Editing entity ' + entityInfo)
+            });
+        };
+
+        var errorCallback = function(){
+            $scope.$apply(function(){
+                $scope.editing.obj = null; 
+                $scope.statusError('Entity not found: ' + entityInfo);
+            });
+        };
+        
+        entityService.fetchObject(entityKind, $scope.itemId,successCallback, errorCallback); 
+        
+        if(entityKind=='exercise'){
+            //we also need to fetch the styles and the templates:
+            entityService.fetchItems(entityConfig.style, $scope);
+            entityService.fetchItems(entityConfig.template, $scope);
+        }
         // $scope.editing.obj= objCopy(original);
 
         $scope.save = function() {
             console.log('Saving edited object %o', $scope.editing.obj);
             $scope.statusInfo('Saving ' + $scope.editing.obj.title);
-        }
+        };
 
         $scope.deleteItem = function() {
             var item = $scope.editing.obj;

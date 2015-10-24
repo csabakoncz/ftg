@@ -9,12 +9,12 @@
 			<div class="form-group">
 				<label for="objTitle" class="control-label">Title</label> <input
 					type="text" class="form-control" id="objTitle"
-					ng-model='editing.obj.title'></input>
+					ng-model='editing.obj.attributes.name'></input>
 			</div>
 			<div class="form-group">
 				<label for="objContent" class="control-label">Content</label>
 				<textarea class="form-control" id="objContent" rows="12"
-					ng-model='editing.obj.content' ng-change='editingChange()'></textarea>
+					ng-model='editing.obj.attributes.content' ng-change='editingChange()'></textarea>
 			</div>
 			<button type="button" class="btn btn-primary" ng-click='save()'
 				ng-disabled='saveDisabled'>Save</button>

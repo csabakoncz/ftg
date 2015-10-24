@@ -1,11 +1,12 @@
-define([ '../ngmodule' ], function(appModule) {
+define([ '../ngmodule','parse' ], function(appModule, Parse) {
     
     var createListController = function(entity) {
-        return function($scope, objectService, $state, capitalizeFilter) {
+        return function($scope, objectService, $state, entityService) {
             
             $scope.entityCollection = entity;
             
             $scope.items = entity.items;
+            entityService.fetchItems(entity, $scope);
             
             $scope.createNew = function(){
                 var newState = $scope.entityCollection.name+'.new';
