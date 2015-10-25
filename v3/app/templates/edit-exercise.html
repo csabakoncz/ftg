@@ -51,7 +51,6 @@
 		<input type="text" ng-model='previewWidth'/>
 		<input type="text" ng-model='previewHeight'/>
 		
-		<iframe src="../app/gwt/Puzzle-hash.html" width="{{previewWidth}}" height="{{previewHeight}}"></iframe>
-<!-- 		<iframe src="../app/view.html?{{editing.obj.id}}" width="{{previewWidth}}" height="{{previewHeight}}"></iframe> -->
+		<iframe src="{{getViewLink()}}" width="{{previewWidth}}" height="{{previewHeight}}"></iframe>
 	</div>
 </div>

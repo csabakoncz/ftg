@@ -62,6 +62,10 @@ define([ '../ngmodule' ], function(appModule) {
                 itemId : duplicate.id
             });
         }
+        
+        $scope.getViewLink=function(){
+            return '../app/view.html?'+$scope.editing.obj.id
+        }
 
     };
 
