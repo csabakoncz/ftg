@@ -1,40 +1,63 @@
 define([ '../ngmodule' ], function(appModule) {
 
-    var basicEditController = function($scope, $stateParams, objectService, $state, entityService, entityConfig) {
+    var basicEditController = function($scope, $stateParams, objectService, $state, entityService, entityConfig, loggerService) {
         $scope.itemId = $stateParams.itemId;
         var entityKind = $scope.entityCollection.name;
 
-        var original={};
-        $scope.editing.obj = original;
-        
+        var original = {};
+        $scope.editing.obj = {};
+
         var entityInfo = entityKind + '/' + $scope.itemId;
-        
-        var successCallback = function(result){
-            $scope.$apply(function(){
-               $scope.editing.obj = result; 
-               $scope.statusInfo('Editing entity ' + entityInfo)
+
+        var successCallback = function(result) {
+            $scope.$apply(function() {
+                $scope.editing.original = result;
+
+                $scope.entityCollection.fields.forEach(function(field) {
+                    $scope.editing.obj[field] = result.get(field);
+                });
+
+                $scope.statusInfo('Editing entity ' + entityInfo)
             });
         };
 
-        var errorCallback = function(){
-            $scope.$apply(function(){
-                $scope.editing.obj = null; 
+        var errorCallback = function() {
+            $scope.$apply(function() {
+                $scope.editing.obj = null;
                 $scope.statusError('Entity not found: ' + entityInfo);
             });
         };
-        
-        entityService.fetchObject(entityKind, $scope.itemId,successCallback, errorCallback); 
-        
-        if(entityKind=='exercise'){
-            //we also need to fetch the styles and the templates:
+
+        entityService.fetchObject(entityKind, $scope.itemId, successCallback, errorCallback);
+
+        if (entityKind == 'exercise') {
+            // we also need to fetch the styles and the templates:
             entityService.fetchItems(entityConfig.style, $scope);
             entityService.fetchItems(entityConfig.template, $scope);
         }
         // $scope.editing.obj= objCopy(original);
 
+        $scope.editingChange = function() {
+            console.log('editing change %o', $scope.editing.obj);
+
+            $scope.entityCollection.fields.forEach(function(field) {
+                $scope.editing.original.set(field, $scope.editing.obj[field]);
+            });
+
+        }
+
         $scope.save = function() {
-            console.log('Saving edited object %o', $scope.editing.obj);
-            $scope.statusInfo('Saving ' + $scope.editing.obj.title);
+            var entityInfo = entityKind + "[" + $scope.editing.obj.name + "]";
+            $scope.statusInfo('Saving ' + entityInfo);
+
+            $scope.editing.original.save({
+                success : function() {
+                    loggerService.infoNonNg("Saving succeeded for " + entityInfo);
+                },
+                error : function(reason) {
+                    loggerService.errorNonNg("Saving failed for " + entityInfo + "\nReason: " + reason);
+                }
+            });
         };
 
         $scope.deleteItem = function() {
@@ -62,9 +85,9 @@ define([ '../ngmodule' ], function(appModule) {
                 itemId : duplicate.id
             });
         }
-        
-        $scope.getViewLink=function(){
-            return '../app/view.html?'+$scope.editing.obj.id
+
+        $scope.getViewLink = function() {
+            return '../app/view.html?' + $scope.editing.obj.id
         }
 
     };

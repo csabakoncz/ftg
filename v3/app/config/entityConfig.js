@@ -1,9 +1,10 @@
 define([ '../ngmodule' ], function(appModule) {
 
     var createEntities = function() {
-        var EntityCollection = function(name, nameProperty) {
+        var EntityCollection = function(name, nameProperty, fields) {
             this.name = name;
             this.nameProperty = nameProperty;
+            this.fields=fields;
             this.items = [];
             this.idCounter = 0;
 
@@ -31,9 +32,15 @@ define([ '../ngmodule' ], function(appModule) {
             template : 'name'
         };
 
+        var fields = {
+                exercise : ['title','content'],
+                style : ['name','content'],
+                template : ['name','content']
+        };
+
         var entities = [];
         entityKinds.forEach(function(name) {
-            entities.push(new EntityCollection(name, nameProperty[name]));
+            entities.push(new EntityCollection(name, nameProperty[name], fields[name]));
         })
 
         return entities;

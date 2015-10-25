@@ -6,7 +6,9 @@ define([ '../ngmodule', 'parse' ], function(appModule, Parse) {
             
             if(entity.items.length>0){
                 //do not know how to handle changed items yet
-                return;
+//                return;
+                //Parse seems to handle dirty entities well (they are preserved)
+                entity.items.splice(0,entity.items.length);
             }
             
             var entityClassName = capitalizeFilter(entity.name);
