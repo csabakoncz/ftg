@@ -1,6 +1,16 @@
-define([ '../ngmodule', 'parse' ], function(appModule, Parse) {
+define([ '../ngmodule', 'parse', 'underscore' ], function(appModule, Parse, _) {
+
+    var createEntityClasses = function(entityConfig, capitalizeFilter) {
+        entityConfig.entities.forEach(function(entity) {
+            var entityClassName = capitalizeFilter(entity.name);
+            entity.eclass = Parse.Object.extend(entityClassName);
+        });
+    }
+
     appModule.factory('entityService', function(entityConfig, loggerService, capitalizeFilter) {
         var entityService = {};
+
+        createEntityClasses(entityConfig, capitalizeFilter);
 
         entityService.fetchItems = function(entity, scope) {
 
@@ -44,6 +54,12 @@ define([ '../ngmodule', 'parse' ], function(appModule, Parse) {
         entityService.copyFieldsFromEntity = function(src, dst, fields) {
             for ( var field in fields) {
                 var fieldValue = src.get(field);
+
+                if (_.isObject(fields[field])) {
+                    //convert if needed
+                    fieldValue = fields[field].fromEntity(fieldValue);
+                }
+
                 dst[field] = fieldValue;
             }
         }
@@ -51,17 +67,17 @@ define([ '../ngmodule', 'parse' ], function(appModule, Parse) {
         entityService.copyFieldsToEntity = function(src, dst, fields) {
             for ( var field in fields) {
                 var fieldValue = src[field];
+
+                if (_.isObject(fields[field])) {
+                    //convert if needed
+                    fieldValue = fields[field].toEntity(fieldValue);
+                }
+                
                 dst.set(field, fieldValue);
             }
         }
 
         entityService.createNew = function(entityCollection, newObjectContent) {
-            var entityKind = capitalizeFilter(entityCollection.name);
-
-            if (undefined == entityCollection.eclass) {
-                entityCollection.eclass = Parse.Object.extend(entityKind);
-            }
-
             var parseObject = new entityCollection.eclass();
 
             entityService.copyFieldsToEntity(newObjectContent, parseObject, entityCollection.fields);

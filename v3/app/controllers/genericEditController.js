@@ -13,7 +13,8 @@ define([ '../ngmodule' ], function(appModule) {
         var successCallback = function(result) {
             $scope.$apply(function() {
                 $scope.editing.original = result;
-
+                $scope.viewLink = '../app/view.html?' + result.id;
+                
                 entityService.copyFieldsFromEntity(result, $scope.editing.obj, entityCollection.fields);
 
                 $scope.statusInfo('Editing entity ' + entityInfo)
@@ -99,10 +100,6 @@ define([ '../ngmodule' ], function(appModule) {
                     loggerService.errorNonNg('Error duplicating ' + err);
                 }
             });
-        }
-
-        $scope.getViewLink = function() {
-            return '../app/view.html?' + $scope.editing.obj.id
         }
 
     };
