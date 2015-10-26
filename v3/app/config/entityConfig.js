@@ -4,7 +4,7 @@ define([ '../ngmodule' ], function(appModule) {
         var EntityCollection = function(name, nameProperty, fields) {
             this.name = name;
             this.nameProperty = nameProperty;
-            this.fields=fields;
+            this.fields = fields;
             this.items = [];
             this.idCounter = 0;
 
@@ -25,7 +25,7 @@ define([ '../ngmodule' ], function(appModule) {
         }
 
         var entityKinds = [ 'exercise', 'style', 'template' ];
-        
+
         var nameProperty = {
             exercise : 'title',
             style : 'name',
@@ -33,9 +33,18 @@ define([ '../ngmodule' ], function(appModule) {
         };
 
         var fields = {
-                exercise : ['title','content'],
-                style : ['name','content'],
-                template : ['name','content']
+            exercise : {
+                title : '',
+                content : ''
+            },
+            style : {
+                name : '',
+                content : ''
+            },
+            template : {
+                name : '',
+                content : ''
+            }
         };
 
         var entities = [];

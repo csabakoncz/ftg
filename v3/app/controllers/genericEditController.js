@@ -1,8 +1,9 @@
 define([ '../ngmodule' ], function(appModule) {
 
     var basicEditController = function($scope, $stateParams, objectService, $state, entityService, entityConfig, loggerService) {
+        var entityCollection = $scope.entityCollection;
         $scope.itemId = $stateParams.itemId;
-        var entityKind = $scope.entityCollection.name;
+        var entityKind = entityCollection.name;
 
         var original = {};
         $scope.editing.obj = {};
@@ -13,9 +14,7 @@ define([ '../ngmodule' ], function(appModule) {
             $scope.$apply(function() {
                 $scope.editing.original = result;
 
-                $scope.entityCollection.fields.forEach(function(field) {
-                    $scope.editing.obj[field] = result.get(field);
-                });
+                entityService.copyFieldsFromEntity(result, $scope.editing.obj, entityCollection.fields);
 
                 $scope.statusInfo('Editing entity ' + entityInfo)
             });
@@ -39,11 +38,7 @@ define([ '../ngmodule' ], function(appModule) {
 
         $scope.editingChange = function() {
             console.log('editing change %o', $scope.editing.obj);
-
-            $scope.entityCollection.fields.forEach(function(field) {
-                $scope.editing.original.set(field, $scope.editing.obj[field]);
-            });
-
+            entityService.copyFieldsToEntity($scope.editing.obj, $scope.editing.original, $scope.entityCollection.fields);
         }
 
         $scope.save = function() {
@@ -61,28 +56,48 @@ define([ '../ngmodule' ], function(appModule) {
         };
 
         $scope.deleteItem = function() {
-            var item = $scope.editing.obj;
-            $scope.statusInfo('Deleting ' + item.title);
-            $scope.entityCollection.deleteItem(item);
-            $scope.statusInfo('Deleted ' + item.title);
-
-            $state.go(entityKind);
+            var item = $scope.editing.original;
+            item.destroy({
+                success : function() {
+                    loggerService.infoNonNg('Deleted ' + entityInfo);
+                    $scope.$apply(function() {
+                        $state.go(entityKind, {}, {
+                            reload : true
+                        })
+                    });
+                },
+                error : function(obj, err) {
+                    loggerService.errorNonNg('Deleted ' + entityInfo);
+                }
+            });
         }
 
         $scope.duplicateItem = function() {
 
             var item = $scope.editing.obj;
+            var nameProperty = entityCollection.nameProperty;
 
-            $scope.statusInfo('Duplicating ' + item.title);
+            $scope.statusInfo('Duplicating ' + entityInfo);
 
             duplicate = objectService.copy(item);
-            duplicate.title += ' - COPY';
+            duplicate[nameProperty] += ' - COPY';
 
-            $scope.entityCollection.addItem(duplicate);
+            var parseDuplicate = entityService.createNew(entityCollection, duplicate);
 
-            var editState = entityKind + '.edit'
-            $state.go(editState, {
-                itemId : duplicate.id
+            parseDuplicate.save({
+                success : function(savedDuplicate) {
+                    var editState = entityKind + '.edit'
+                    $scope.$apply(function() {
+                        $state.go(editState, {
+                            itemId : savedDuplicate.id
+                        }, {
+                            reload : true
+                        });
+                    });
+                },
+                error : function(obj, err) {
+                    loggerService.errorNonNg('Error duplicating ' + err);
+                }
             });
         }
 
