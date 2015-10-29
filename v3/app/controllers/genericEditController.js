@@ -58,6 +58,11 @@ define([ '../ngmodule' ], function(appModule) {
         };
 
         $scope.deleteItem = function() {
+
+            if(!confirm('Delete the current item?')){
+                return;
+            }
+
             var item = $scope.editing.original;
             item.destroy({
                 success : function() {
