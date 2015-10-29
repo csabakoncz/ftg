@@ -1,6 +1,6 @@
 define([ '../ngmodule' ], function(appModule) {
 
-    var basicEditController = function($scope, $stateParams, objectService, $state, entityService, entityConfig, loggerService) {
+    var basicEditController = function($scope, $stateParams, objectService, $state, entityService, entityConfig, loggerService, $document) {
         var entityCollection = $scope.entityCollection;
         $scope.itemId = $stateParams.itemId;
         var entityKind = entityCollection.name;
@@ -44,12 +44,20 @@ define([ '../ngmodule' ], function(appModule) {
             entityService.copyFieldsToEntity($scope.editing.obj, $scope.editing.original, $scope.entityCollection.fields);
         }
 
+        $scope.refreshPreview = function(){
+            var iframes = $document.find('iframe');
+            if(iframes.length==1){
+                iframes[0].contentWindow.location.reload();
+            }
+        }
+        
         $scope.save = function() {
             $scope.statusInfo('Saving ' + entityInfo);
 
             $scope.editing.original.save({
                 success : function() {
                     loggerService.infoNonNg("Saving succeeded for " + entityInfo);
+                    $scope.refreshPreview();
                 },
                 error : function(obj, error) {
                     loggerService.errorNonNg("Saving failed for " + entityInfo + "\nError code: " + error.code+', message: '+error.message);

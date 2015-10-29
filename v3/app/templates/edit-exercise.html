@@ -48,12 +48,11 @@
 		</form>
 	</div>
 </div>
-
+<h3>Link: <a href='{{viewLink}}'>{{viewLink}}</a></h3>
 </tab>
 <tab heading='Preview'>
 <div class='panel panel-info'>
-	<div class='panel-header'>Preview</div>
-
+	<a class='btn btn-success' ng-click='refreshPreview()'>Refresh</a>
 	<div class='panel-body'>
 		<div class='form-group'>
 			<label class='control-label'>Width:</label> <input type="text"
