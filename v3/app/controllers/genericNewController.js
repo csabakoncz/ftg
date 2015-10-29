@@ -17,7 +17,6 @@ define([ '../ngmodule', 'parse' ], function(appModule) {
         $scope.editing.original = undefined;
 
         $scope.editingChange = function() {
-            console.log('editing change %o', $scope.editing.obj);
             entityService.copyFieldsToEntity($scope.editing.obj, parseObject, entityCollection.fields);
         }
 
@@ -38,8 +37,8 @@ define([ '../ngmodule', 'parse' ], function(appModule) {
 
                     });
                 },
-                error : function(reason) {
-                    loggerService.errorNonNg("Creating/Saving failed for " + entityInfo + "\nReason: " + reason);
+                error : function(obj, error) {
+                    loggerService.errorNonNg("Creating/Saving failed for " + entityInfo + "\nReason: " + JSON.stringify(error));
                 }
             });
         };

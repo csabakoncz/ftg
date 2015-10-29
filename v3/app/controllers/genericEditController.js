@@ -7,9 +7,12 @@ define([ '../ngmodule' ], function(appModule) {
 
         var original = {};
         $scope.editing.obj = {};
-
+        
         var entityInfo = entityKind + '/' + $scope.itemId;
 
+        $scope.previewWidth = 600;
+        $scope.previewHeight = 400;
+        
         var successCallback = function(result) {
             $scope.$apply(function() {
                 $scope.editing.original = result;
@@ -38,20 +41,18 @@ define([ '../ngmodule' ], function(appModule) {
         // $scope.editing.obj= objCopy(original);
 
         $scope.editingChange = function() {
-            console.log('editing change %o', $scope.editing.obj);
             entityService.copyFieldsToEntity($scope.editing.obj, $scope.editing.original, $scope.entityCollection.fields);
         }
 
         $scope.save = function() {
-            var entityInfo = entityKind + "[" + $scope.editing.obj.name + "]";
             $scope.statusInfo('Saving ' + entityInfo);
 
             $scope.editing.original.save({
                 success : function() {
                     loggerService.infoNonNg("Saving succeeded for " + entityInfo);
                 },
-                error : function(reason) {
-                    loggerService.errorNonNg("Saving failed for " + entityInfo + "\nReason: " + reason);
+                error : function(obj, error) {
+                    loggerService.errorNonNg("Saving failed for " + entityInfo + "\nError code: " + error.code+', message: '+error.message);
                 }
             });
         };
@@ -97,7 +98,7 @@ define([ '../ngmodule' ], function(appModule) {
                     });
                 },
                 error : function(obj, err) {
-                    loggerService.errorNonNg('Error duplicating ' + err);
+                    loggerService.errorNonNg('Error duplicating: code ' + err.code+', message: '+err.message);
                 }
             });
         }

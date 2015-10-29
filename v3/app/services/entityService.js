@@ -36,7 +36,7 @@ define([ '../ngmodule', 'parse', 'underscore' ], function(appModule, Parse, _) {
                     });
                 },
                 error : function(error) {
-                    scope.statusError('Could not fetch ' + entityClassName + '.\nReason ' + error);
+                    loggerService.errorNonNg('Could not fetch ' + entityClassName + '.\nError code: ' + error.code+' message: '+error.message);
                     console.log(error);
                 }
             });
