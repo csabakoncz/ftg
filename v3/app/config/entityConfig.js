@@ -54,7 +54,9 @@ define([ '../ngmodule' ], function(appModule) {
                 fromEntity : function(e) {
                     return e.id;
                 }
-            }
+            },
+            previewWidth:'600',
+            previewHeight:'400'
         },
         style : {
             name : '',

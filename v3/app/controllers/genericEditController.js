@@ -10,9 +10,6 @@ define([ '../ngmodule' ], function(appModule) {
         
         var entityInfo = entityKind + '/' + $scope.itemId;
 
-        $scope.previewWidth = 600;
-        $scope.previewHeight = 400;
-        
         var successCallback = function(result) {
             $scope.$apply(function() {
                 $scope.editing.original = result;

@@ -56,15 +56,15 @@
 	<div class='panel-body'>
 		<div class='form-group'>
 			<label class='control-label'>Width:</label> <input type="text"
-				class='form-control' ng-model='previewWidth' />
+				class='form-control' ng-model='editing.obj.previewWidth' ng-change='editingChange()'/>
 		</div>
 		<div class='form-group'>
 			<label class='control-label'>Height:</label> <input type="text"
-				class='form-control' ng-model='previewHeight' />
+				class='form-control' ng-model='editing.obj.previewHeight' ng-change='editingChange()'/>
 		</div>
 
-		<iframe src="{{viewLink}}" width="{{previewWidth}}"
-			height="{{previewHeight}}"></iframe>
+		<iframe src="{{viewLink}}" width="{{editing.obj.previewWidth}}"
+			height="{{editing.obj.previewHeight}}"></iframe>
 	</div>
 </div>
 </tab>
