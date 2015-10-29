@@ -1,4 +1,16 @@
+(function(){
+var mappings={};
+var isOffline=/offline/.test(location.search);
+if(isOffline){
+    mappings['*']={
+            'parse':'parsemock'
+    }
+}
+
 require.config({
+
+    map:mappings,
+
     paths : {
         underscore : '../bower_components/underscore/underscore',
         jquery : '../bower_components/jquery/dist/jquery',
@@ -18,7 +30,7 @@ require.config({
         angularUiRouter : [ 'angular' ],
         angularUiBootstrap : [ 'angular' ],
         parse : {
-            deps : [ 'underscore' ],
+//            deps : [ 'underscore' ],
             exports : 'Parse',
         },
         underscore : {
@@ -27,3 +39,4 @@ require.config({
     },
     deps : [ 'main' ]
 });
+})();
