@@ -1,0 +1,40 @@
+<div class="row">
+	<div class="col-xs-3">
+		<a ui-sref='.new' class='btn btn-success' ng-click='createNew()'>Create new</a>
+	</div>
+	<div class="col-xs-9">
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-3">
+		
+		<!--
+		rudimentary paging:
+		<div ng-repeat="item in items.slice((currentPage-1)*itemsPerPage,currentPage*itemsPerPage)"><a ui-sref='.edit({itemId: item.id})'>{{item.id}}</a></div> 
+		-->
+		
+		<div class='panel panel-default'>
+			<div class='panel-body'>
+				<div ng-repeat="item in items">
+					<a ui-sref='.edit({itemId: item.id})' ng-style="item.dirty()?{'font-weight':'bold'}:{}">{{item.title||item.attributes.title||item.attributes.name}}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-9">
+		<ui-view />
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-3">
+
+		<div>Total items are {{items.length}}, currentPage is
+			{{currentPage}}</div>
+
+		<pagination total-items="items.length" ng-model="currentPage"
+			ng-change="pageChanged()" items-per-page='itemsPerPage'
+			class='pagination-sm'></pagination>
+
+	</div>
+</div>

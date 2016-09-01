@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet"
+	href="bower_components/bootstrap/dist/css/bootstrap.css">
+</head>
+
+<body ng-controller='appController'>
+
+	<div class="container-fluid">
+
+		<!-- NAVIGATION -->
+		<nav class="navbar navbar-inverse" role="navigation">
+			<div class="navbar-header small">
+				<a class="navbar-brand">Fill-the-gap!</a>
+			</div>
+			<ul class="nav navbar-nav small">
+				<li ng-repeat='entity in entities'><a ui-sref="{{entity.name}}">{{entity.name|capitalize}}</a></li>
+			</ul>
+			<ul class="nav navbar-nav pull-right">
+				<li><a ui-sref="user">User: {{appUserInfo.username}}</a></li>
+			</ul>
+		</nav>
+
+		<div ui-view></div>
+
+		<div ng-class="['alert', error?'alert-danger':'alert-info']">
+			<div class="glyphicon glyphicon-info-sign"></div>
+			{{status}}
+		</div>
+	</div>
+
+	<script src="bower_components/requirejs/require.js" data-main='app/require-config.js' ></script>
+	
+</body>
+</html>

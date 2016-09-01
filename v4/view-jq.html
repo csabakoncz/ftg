@@ -1,0 +1,186 @@
+<html>
+<head>
+
+<style type="text/css">
+body {
+	font-family: arial, verdana;
+	font-size: 12px;
+	margin: 0px auto;
+	width: 600px;
+}
+
+div.container {
+	border: 1px solid #000;
+	float: left;
+	margin: 0 auto;
+	padding: 10px;
+	width: 100%;
+}
+
+#leftCol {
+	float: left;
+}
+
+#rightCol {
+	float: right;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 50%;
+}
+
+li {
+	border: 1px solid #000;
+	font-weight: bold;
+	margin: 5px 0;
+	padding: 10px 0;
+	text-align: center;
+	width: 175px;
+}
+
+#source li {
+	cursor: move;
+}
+
+#score {
+	font-weight: bold;
+	float: left;
+	color: #ff0000;
+}
+
+#reset {
+	color: #ff0000;
+	cursor: pointer;
+	font-weight: bold;
+	text-align: right;
+	text-decoration: underline;
+	float: right;
+}
+
+.clear {
+	clear: both;
+}
+
+#dialog-complete {
+	display: none;
+}
+
+#dialog-complete span {
+	float: left;
+	margin: 0 7px 20px 0;
+}
+</style>
+</ head>
+<body>
+	<div class='container'>
+		<span id='score'> </span>
+		<button id='reset' type="button">Reset</button>
+		<div class='clear'></div>
+		<hr />
+		<div id='leftCol'>
+			<ul id='source'>
+			</ul>
+		</div>
+		<div id='rightCol'>
+			<ul id='target'>
+			</ul>
+		</div>
+		<div id="dialog-complete" title="Well Done !">
+			<p>
+				<span class="ui-icon ui-icon-check "> </span>Well done . You have
+				completed the quiz successfully .
+			</p>
+		</div>
+	</div>
+	<script src='bower_components/requirejs/require.js'>
+        
+    </script>
+	<script type="text/javascript">
+        require.config({
+            map : {
+                '*' : {
+                    'jquery.ui' : 'bower_components/jquery.ui/ui'
+                }
+            },
+            paths : {
+                'jquery' : 'bower_components/jquery/dist/jquery'
+            }
+        });
+
+        require([ 'jquery.ui/draggable', 'jquery.ui/droppable', 'jquery.ui/effect-bounce','jquery.ui/dialog' ], function(d) {
+
+            console.log('draggable=%o', d);
+
+            function shuffle(o) {
+                for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x)
+                    ;
+                return o;
+            }
+            ;
+
+            function createQuizLayout() {
+                //declare arrays of countries and their capitals.
+                var countries = [ "USA", "UK", "India", "Germany", "Turkey", "France", "Nepal", "Japan", "South Africa", "Maldives" ];
+                var capitals = [ "Washington", "London", "Delhi", "Berlin", "Istanbul", "Paris", "Kathmandu", "Tokyo", "Capetown", "Male" ];
+                var arrCountry = [];
+                for (var i = 0; i < countries.length; i++) {
+                    arrCountry.push('<li data-index="' + (i + 1) + '">' + countries[i] + '</li>');
+                }
+                var arrCapital = [];
+                for (var i = 0; i < capitals.length; i++) {
+                    arrCapital.push('<li data-index="' + (i + 1) + '">' + capitals[i] + '</li>');
+                }
+                //shuffle the arrays
+                arrCountry = shuffle(arrCountry);
+                arrCapital = shuffle(arrCapital);
+                // once country and capital items are ready, we insert them into DOM
+                $('#source').html(arrCountry.join(''));
+                $('#target').html(arrCapital.join(''));
+            }
+
+            function initQuiz() {
+                $('#source li').draggable({
+                    revert : true,
+                    revertDuration : 200,
+                    cursor : "move"
+                });
+                var totalScore = 0;
+                $('#score').text(totalScore + ' points.');
+                $('#target li').droppable({
+                    accept : function(draggable) {
+                        if (parseInt(draggable.data('index'), 10) === parseInt($(this).data('index'), 10)) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    },
+                    drop : function(event, ui) {
+                        var that = $(this);
+                        that.addClass("ui-state-highlight").html('Correct!').effect('bounce');
+                        that.droppable('disable');
+                        ui.draggable.addClass('correct ui-state-error');
+                        (ui.draggable).draggable('disable');
+                        totalScore++;
+                        $('#score').text(totalScore + ' points.');
+                        if ($('li.correct').length == 10) {
+                            $("#dialog-complete").dialog({
+                                resizable : false,
+                                modal : true
+                            });
+                        }
+                    }
+                });
+            }
+
+            $(document).ready(function() {
+                createQuizLayout();
+                initQuiz();
+            });
+
+        });
+    </script>
+</body>
+</html>

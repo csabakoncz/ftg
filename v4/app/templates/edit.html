@@ -1,0 +1,24 @@
+<div ng-if="editing.original">
+<a class='btn btn-info' ng-click='duplicateItem()'>Duplicate</a>
+<a class='btn btn-danger' ng-click='deleteItem()'>Delete</a>
+</div>
+
+<div class='panel panel-primary'>
+	<div class='panel-body'>
+
+		<form name='editForm'>
+			<div class="form-group">
+				<label for="objTitle" class="control-label">Title</label> <input
+					type="text" class="form-control" id="objTitle"
+					ng-model='editing.obj.name' ng-change='editingChange()'></input>
+			</div>
+			<div class="form-group">
+				<label for="objContent" class="control-label">Content</label>
+				<textarea class="form-control" id="objContent" rows="12"
+					ng-model='editing.obj.content' ng-change='editingChange()'></textarea>
+			</div>
+			<button type="button" class="btn btn-primary" ng-click='save()'
+				ng-disabled='saveDisabled'>Save</button>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>FTG Exercises</title>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script
+	src="bower_components/underscore/underscore.js"></script>
+<script src="parse-latest.js"></script>
+<script src="../app/app.js"></script>
+</head>
+
+<body>
+	<img src="../app/gwt/ajax-loader.gif" id="loadingIndicator" style="position: absolute;left: 50%; top:50%"></img>
+	
+	<script type="text/javascript">
+		var main = function() {
+			
+			//ftg_parseInit()
+        Parse.initialize("myAppId", "unused");
+        Parse.serverURL="https://ftg-fushimisi.rhcloud.com/parse";
+        
+			//var exId='pokgmohEjB' //get the exId from the query string
+			var exId = location.search.replace('?','')
+			
+			var Exercise = Parse.Object.extend('Exercise')
+			var q = new Parse.Query(Exercise)
+			
+			q.include('template')
+			q.include('style')
+			
+			var success = function(object){
+				exercise=object
+				document.title=object.get('title')
+				
+				var style=$('<style type="text/css"></style>')
+				
+				//does not work, the style needs first to be fetched
+				var exStyle=object.get('style').get('content')
+				style.html(exStyle)
+				$('head').append(style)
+				
+				var puzzleDiv = $('<div id="text" style="display: none;"></div>')
+				puzzleDiv.html(object.get('content'))
+				$('body').append(puzzleDiv)
+				
+				var template = _.template(object.get('template').get('content'))
+				var templateResultDOM=$(template(object.attributes))
+				$('body').append(templateResultDOM)
+				
+			    gwtBootStrap=$('<script type="text/javascript" language="javascript" src="../app/gwt/ftg/ftg.nocache.js" />')
+				
+				$('body').append(gwtBootStrap)
+			}
+			q.get(exId,{success:success,error:function(e){console.log(e)}})
+			
+			$('#title').append($('<h1>Exercises</h1>')[0])
+		}
+		$(main)
+	</script>
+</body>
+
+</html>
