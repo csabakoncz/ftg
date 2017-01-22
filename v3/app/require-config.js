@@ -17,7 +17,8 @@ require.config({
         angular : '../bower_components/angular/angular',
         angularUiRouter : '../bower_components/angular-ui-router/release/angular-ui-router',
         angularUiBootstrap : '../bower_components/angular-bootstrap/ui-bootstrap-tpls',
-        parse : '../bower_components/parse/parse'
+//        parse : '../bower_components/parse/parse'
+            parse : '../parse-latest'
     },
     shim : {
         jquery : {
