@@ -1,0 +1,12 @@
+{
+  "title": "AA",
+  "content": "árvíztűrés A #B# C #D# \ntükörfúrás\nBBB\n<p></p>\n#EEEE#?",
+  "previewWidth": "600",
+  "previewHeight": "600",
+  "template": {
+    "_ref": "template/1"
+  },
+  "style": {
+    "_ref": "style/1"
+  }
+}

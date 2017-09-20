@@ -1,0 +1,12 @@
+{
+  "title": "A csokoládé története",
+  "content": "#A kakaó őshazája Amerika#\nA kakaóbab egy trópusi fa gyümölcse, latin neve Theobroma cacao vagyis „az istenek eledele”. A kakaóbabból készült főzetet már az azték indiánok is fogyasztották, és hittek abban, hogy az ital növeli bölcsességüket és életerejüket. Amerika felfedezésekor Kolumbusz Kristóf és legénysége Guanja szigetén ismerték meg a csokoládéitalt, amit a szigetlakók xocolatl-nak hívtak.\n#A kakaó útja Európába#\nA kakaó igazi felfedezője Hernán Cortés volt, aki 1519-ben érkezett a mai Mexikó területére, ahol az aztékok pénzként is használták a kakaóbabot. Cortés katonáival is itatott a fűszeres nedűből, akik így képesek voltak egész nap menetelni Amerika belseje felé. Az eredmény láttán hajóin kakaót szállítatott Európába.\n#A csokoládékészítés kezdetei#\nEgy szerzetes küldött néhány szem kakaóbabot a zaragozai apátnak, Európában ő készített belőle elsőként csokoládét. Ez az ital nagyon keserű volt. Száz év múlva kezdték mézzel, majd cukorral ízesíteni. A chocolatl nevű italt a spanyol királyi család hivatalos italává nevezték ki. A 17. század elején a spanyol király lánya a francia király felesége lett, így a csokoládéivás a francia udvarban is meghonosodott. A franciák ízlésének furcsa volt a sűrű ital, ezért vízzel, később tejjel tették lágyabbá, és elegáns porcelán vagy ezüstcsészékben szolgálták fel.\n#Csokoládé az arisztokratáknak, a betegeknek és a katonáknak#\nA 18. században a patikákban is lehetett különféle csokoládékészítményeket kapni: volt hashajtó csokoládé, méregtelenítő csokoládé, de zabcsokoládé is. A bonbonok ízesítésének, díszítésének művészete az arisztokraták kiváltsága volt. A 19. század elején jelent meg az első táblás csokoládé. Magas tápértékének köszönhetően az első és második világháború alatt a katonák élelmezésének alapvető része volt a rendszeres csokoládéporció.",
+  "previewWidth": "700",
+  "previewHeight": "1200",
+  "template": {
+    "_ref": "template/1"
+  },
+  "style": {
+    "_ref": "style/1"
+  }
+}

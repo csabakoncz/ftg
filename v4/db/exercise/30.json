@@ -1,0 +1,12 @@
+{
+  "title": "A LEGO története",
+  "content": "A világ egyik legnépszerűbb #játéka# még ma is a LEGO. Alapjait a dán Ole Kirk Christiansen rakta le, aki az 1930-as évek elején Billund városában fajátékokat gyárott.\n<p>\nOle Kirk házi versenyt rendezett az alkalmazottak között, hogy nevet találjanak a vállalkozásnak. A #választás# végül saját ötletére, a „Lego”-ra esett, amely a dán „leg godt”, „játssz jól” kifejezésből ered.\n<p>\nA cég 1947-ben kezdett #műanyag# építőjátékot gyártani, 1955-ben jelent meg az első komplett LEGO-rendszer, a Town Plan. 1968-ban nyílt meg az első #Legoland# Billundban, amelyet számos másik követett: az Egyesült Királyságban (1996), Kaliforniában (1999), Németországban (2002) és Malajziában (2012) is van már Legoland. Magyarországon 1973-tól kapható a játék, 1992-ben pedig Lego #gyár# is nyílt.\n<p>\nA LEGO azért olyan népszerű, mert szinte bármit meg lehet építeni az elemekből. Ma már több formában és színben kapható, és van már LEGO Star Wars, sőt Lego Harry Potter is. 1997-ben jelent meg az első számítógépes #játék#, a LEGO Island, 2003-ban az első animációs #film#, a Bionicle: Fényálarc. ",
+  "previewWidth": "600",
+  "previewHeight": "400",
+  "template": {
+    "_ref": "template/1"
+  },
+  "style": {
+    "_ref": "style/1"
+  }
+}

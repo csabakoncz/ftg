@@ -1,0 +1,10 @@
+{
+  "title": "Reklám",
+  "content": "Kicsiknek, #nagyoknak#. Telteknek és #karcsúaknak#. Optimistáknak és #pesszimistáknak#. (...). A rövidlátóknak, a #távollátóknak# és az előrelátóknak. (...). A pusztán és a #Balaton# hullámain. Eső előtt és eső után. Randevúra és #családi ebédre#. Romantikusoknak, azoknak akik szeretnek, akik nem, akik #szívből#, akik igazán. (...). Egyedül, #kettesben#. Együtt a családdal, neked és nekem. Nekünk, mindenkinek.",
+  "template": {
+    "_ref": "template/1"
+  },
+  "style": {
+    "_ref": "style/1"
+  }
+}

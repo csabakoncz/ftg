@@ -1,0 +1,12 @@
+{
+  "title": "A családom",
+  "content": "Anya és Apa a #szüleim#.\n<br />\nA húgom és a nővérem a #lánytestvéreim#.\n<br />\nAz öcsém és a bátyám a #fiútestvéreim#.\n<br />\nA nagypapám és a nagymamám a #nagyszüleim#.\n<br />\nA fiam és a lányom a #gyerekeim#.\n<br />\nApa bátyja az én #nagybátyám#.\n<br />\nAnya húga az én #nagynéném#.\n<br />\nA nagynéném fia és lánya az én #unokatestvéreim#.\n<br />\nA bátyjám fia az én #unokaöcsém#.\n<br />\nA húgom lánya az én #unokahúgom#.",
+  "previewWidth": "600",
+  "previewHeight": "400",
+  "template": {
+    "_ref": "template/1"
+  },
+  "style": {
+    "_ref": "style/1"
+  }
+}

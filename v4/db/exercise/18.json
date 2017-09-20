@@ -1,0 +1,10 @@
+{
+  "title": "A Coca Cola története",
+  "content": "A Coca Cola története Atlantában kezdődik 1886-ban. John S. Pemberton feltalál egy új italt. Egyik #összetevője# az afrikai kóladió, egy másik a dél-amerikai kokacserje #levele#. Pemberton gondolkodik, hogyan nevezze el a szirupot. Végül #üzlettársa#, Frank M. Robinson javasolja a Coca-Cola nevet és találja ki a különleges #írásmódot#. Ez lesz a cég híres #védjegye#. Harminc évvel később születik meg az üvegpalack híres #dizájnja#. Az üveg és az írásmód nagyon fontosak a sikerhez. \n1985-ben hihetetlen dolog történik: megváltoztatják a kóla #receptjét#. A közönség nagyon szomorú, ezért hamarosan visszatérnek az eredeti recepthez. Így jön létre a cég régi-új #terméke#, a Coca Cola classic.",
+  "template": {
+    "_ref": "template/1"
+  },
+  "style": {
+    "_ref": "style/1"
+  }
+}

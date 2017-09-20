@@ -1,0 +1,12 @@
+{
+  "title": "A bécsi postakocsi",
+  "content": "Bécs és Buda között régen háromfajta postakocsi közlekedett: a gyorsposta (delizsánsz) utasokat, leveleket és pénzküldeményeket szállított, a lassúbb postaszekér utasokat és árukat, míg a postai társzekér kizárólag árut fuvarozott.\nA delizsánsz (diligence) menetrend szerint, meghatározott útvonalon közlekedett, előbb Bécs és Brünn, majd Bécs és Prága, illetve Bécs és Linz között. 1752-től Bécs és Buda között is elindult a a rendszeres postakocsijárat, eleinte hetente egyszer érkeztek és indultak a négylovas kocsik. Az út Bécsből Budapestre 30 órát vett igénybe, egy társzekér pedig 57 óra alatt tette meg a távolságot. Budáról az ország minden tája felé is szerveztek járatokat. Egy-egy utazás napokig eltartott.\nVörösmarty Mihály 1839-ben arról számolt be, hogy Pestről Debrecenbe hét teljes napon át utazott. Tehát nemcsak a XVIII. században, hanem még a XIX. század első felében is postakocsin és gyorskocsin bonyolították a távolsági közlekedést Pestről és Budáról.\nKésőbb, a közlekedési viszonyok javulásával a menetidő Székesfehérvárra nyolc órára, Bécsbe pedig 20-26 órára rövidült.\n1846-ban Magyarországon is megjelent a vasút, amely aztán rövid idő alatt háttérbe szorította, majd teljesen kiiktatta a távolsági közlekedésből a romantikus, de fáradságos postakocsi-utazást. ",
+  "previewWidth": "600",
+  "previewHeight": "400",
+  "template": {
+    "_ref": "template/1"
+  },
+  "style": {
+    "_ref": "style/1"
+  }
+}

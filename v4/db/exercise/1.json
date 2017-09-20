@@ -1,0 +1,12 @@
+{
+  "title": "Snoopy és Charlie Brown - A film",
+  "content": "Charlie Brown, a világ talán legismertebb, legkerekebb fejű lúzere. A #kisiskolás#, akinek soha semmi sem sikerül, belevág #élete# legnagyobb, legkockázatosabb vállalkozásába: meg akarja szólítani az osztályukba érkezett új lányt. Próbálkozását izgalmas és fordulatos #kalandok# kísérik: osztálybuli, táncverseny, jéghoki, valamint egy titokzatos módon tökéletesre sikerült #dolgozat#.  Charlie #kutyája#, Snoopy közben légi csatába keveredik ősi ellenségével, minden pilóták legveszélyesebbikével, a Vörös Báróval.",
+  "previewWidth": "600",
+  "previewHeight": "400",
+  "template": {
+    "_ref": "template/1"
+  },
+  "style": {
+    "_ref": "style/1"
+  }
+}

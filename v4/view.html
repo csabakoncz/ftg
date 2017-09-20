@@ -6,8 +6,6 @@
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script
 	src="bower_components/underscore/underscore.js"></script>
-<script src="parse-latest.js"></script>
-<script src="../app/app.js"></script>
 </head>
 
 <body>
@@ -15,21 +13,12 @@
 	
 	<script type="text/javascript">
 		var main = function() {
+		    var exId = location.search.replace('?','')
+		    
+			downloadDirectly(exId,success);
+			downloadThroughExref(exId, success);
 			
-			//ftg_parseInit()
-        Parse.initialize("myAppId", "unused");
-        Parse.serverURL="https://ftg-fushimisi.rhcloud.com/parse";
-        
-			//var exId='pokgmohEjB' //get the exId from the query string
-			var exId = location.search.replace('?','')
-			
-			var Exercise = Parse.Object.extend('Exercise')
-			var q = new Parse.Query(Exercise)
-			
-			q.include('template')
-			q.include('style')
-			
-			var success = function(object){
+			function success(object){
 				exercise=object
 				document.title=object.get('title')
 				
@@ -45,16 +34,64 @@
 				$('body').append(puzzleDiv)
 				
 				var template = _.template(object.get('template').get('content'))
-				var templateResultDOM=$(template(object.attributes))
+				var templateResultDOM=$(template(object))
 				$('body').append(templateResultDOM)
 				
 			    gwtBootStrap=$('<script type="text/javascript" language="javascript" src="../app/gwt/ftg/ftg.nocache.js" />')
 				
 				$('body').append(gwtBootStrap)
 			}
-			q.get(exId,{success:success,error:function(e){console.log(e)}})
+
 			
 			$('#title').append($('<h1>Exercises</h1>')[0])
+			
+			function downloadThroughExref(linkId, success){
+			    getEntity('_link',linkId).then(function(link){
+			        var exId = link._ref.split('/')[1];
+			        downloadDirectly(exId, success);
+			    });
+			}
+			
+			function getEntity(type, id){
+			    return $.get('db/'+type+'/'+id+'.json')
+			}
+
+			function getDB(ref){
+			    return $.get('db/'+ref+'.json')
+			}
+
+			function getExcercise(id){
+			    return getEntity('exercise', id);
+			}
+			
+			var ParseObject = {
+				get: function(what){
+				    return this[what];
+				}
+			}
+			
+			function createParseObject(src){
+			    var po = Object.create(ParseObject);
+			    _.extend(po,src);
+			    return po;
+			}
+			
+			function downloadDirectly(exId, successCb){
+			    getExcercise(exId)
+			    .then(function(data){
+			        return $.when(data,getDB(data.template._ref),getDB(data.style._ref))
+			    })
+			    .then(function (exercise, template, style){
+			        exercise = createParseObject(exercise);
+			        template = createParseObject(template[0]);
+			        style = createParseObject(style[0]);
+			        
+			        exercise.template=template;
+			        exercise.style=style;
+			        
+			        success(exercise)
+			    });
+			}
 		}
 		$(main)
 	</script>

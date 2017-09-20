@@ -1,0 +1,12 @@
+{
+  "title": "Mire jó a légzsák?",
+  "content": "Az 1950-es években sokan haltak meg #autóbalesetben#, ezért fejlesztették ki a #biztonsági övet#, majd később a légzsákot. Először 1981-ben, egy Mercedesben jelent meg a #légzsák#, ma már új autó szinte elképzelhetetlen nélküle. \n\nDe mire jó a légzsák? Egy balesetnél általában három #ütközés# történik: először két #jármű# ütközik, utána az #utasok# ütköznek a műszerfallal vagy a kormánnyal, végül a belső szervek a bordákkal vagy #agyunk# a koponyacsonttal. A légzsákok az ütközés pillanatában kinyílnak és felfúvódnak, így megakadályozzák, hogy  a műszerfallal vagy a kormánnyal ütközzünk. Sokak szerint a második legfontosabb biztonsági eszköz a légzsák.\n\n",
+  "previewWidth": "600",
+  "previewHeight": "400",
+  "template": {
+    "_ref": "template/1"
+  },
+  "style": {
+    "_ref": "style/1"
+  }
+}

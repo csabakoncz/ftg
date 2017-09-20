@@ -1,0 +1,12 @@
+{
+  "title": "A farkas visszatér",
+  "content": "\nAz utóbbi néhány évben a farkas és a barna medve visszatért az Északi-középhegységbe. Ennek egyik oka, hogy a #mezőgazdasági# területek növekedésével gyarapodott a szarvasok, őzek és vaddisznók állománya, ami bő táplálékot nyújt. Másik oka, hogy az Európai Unióban #tiltottá# váltak az olyan #kegyetlen# módszerek, mint a mérgezés vagy a kifüstölés. Az is elrettenti a vadászokat, hogy  Magyarországon az #orvvadászat# akár három évi szabadságvesztéssel is büntethető.\n<p>A nagyragadozóknak fontos szerepük van az #ökoszisztéma# fenntartásában. A növényevők zsákmányolásával ezek populációira gyakorolnak hatást. A farkas például csökkenti a #szarvasállományt#. Ez segítheti a facsemeték #regenerálódását#, ami hatással lehet a fákon fészkelő madarakra.\n",
+  "previewWidth": "600",
+  "previewHeight": "400",
+  "template": {
+    "_ref": "template/1"
+  },
+  "style": {
+    "_ref": "style/1"
+  }
+}

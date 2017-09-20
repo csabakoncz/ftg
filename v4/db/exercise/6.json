@@ -1,0 +1,12 @@
+{
+  "title": "Mászkálás a konyhában",
+  "content": "#Réka# szeret végtelen köröket írni a konyhában és az #előszobában#.\n<p/>\nMiért? Senki sem #tudja#.",
+  "previewWidth": "600",
+  "previewHeight": "400",
+  "template": {
+    "_ref": "template/1"
+  },
+  "style": {
+    "_ref": "style/1"
+  }
+}

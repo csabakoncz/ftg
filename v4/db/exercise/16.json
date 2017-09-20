@@ -1,0 +1,12 @@
+{
+  "title": "A honfoglaló magyarok táplálkozása",
+  "content": "\nA honfoglalás korában a magyarok naponta kétszer #étkeztek#. \nA honfoglaló magyarok juhtejet, lótejet, mézből készített sört #ittak#, lepénykenyeret #ettek#.Egyetlen édesítőszerük a méz #volt#. Sokat #gyűjtögettek#, például csipkebogyót, vadalmát, vadkörtét és áfonyát. A kertben borsót, lencsét, hagymát és tormát #termesztettek#.\n\n\n",
+  "previewWidth": "600",
+  "previewHeight": "400",
+  "template": {
+    "_ref": "template/1"
+  },
+  "style": {
+    "_ref": "style/1"
+  }
+}

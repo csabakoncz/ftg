@@ -1,0 +1,6 @@
+{
+	"content": "h1{\n        color: brown;\n}\nbody {\nline-height: 2;\nfont-size: medium !important;\n}\n\n.choicesPanel{\n\tborder-style: solid;\n        border-color: #286178;\n\tpadding: 1em;\n        border-width: thin;\n}\n\n.puzzleArea{\n\tborder-style: solid;\n        border-color: #286178;\n\tpadding: 1em;\n        color: #617828;\n        border-width: thin;\n}\n.gapPanel{\n\tborder-bottom-style: dashed;\n\tborder-bottom-width: 1px;\n}\n\n.correctWord{\n\tcolor: #260450;\n}\n\n.choiceWord{\n\tmargin-right: 1em;\n}\n\n.incorrectWord{\n\tcolor:#b45e3c;\n}\n\n.guessedWord{\n\tposition:absolute;\n\tleft:0px;\n\tright:0px;\n\ttext-align:center;\n}",
+	"name": "puzzle",
+	"objectId": "1",
+	"className": "Style"
+}

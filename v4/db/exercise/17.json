@@ -1,0 +1,10 @@
+{
+  "title": "Milyen a jó újévi fogadalom?",
+  "content": "<ol>\n<li>\t#Gondolja végig#, mi az, ami az Ön számára valóban fontos! \n<li>\t#Koncentráljon# egyetlen fogadalomra!\n<li>\t#Fogalmazzon meg# konkrét lépéseket: mit, mikor hol és hogyan!\n<li>\t#Legyen# megértő és türelmes!\n<li>\t#Ünnepelje meg# a sikert!\n<li>\t#Írja le# céljait, így nagyobb az esély a sikerre!\n<li>\t#Szerezzen# társakat: jobb, ha másokkal együtt fut vagy fogyókúrázik.\n</ol>\n",
+  "template": {
+    "_ref": "template/1"
+  },
+  "style": {
+    "_ref": "style/1"
+  }
+}

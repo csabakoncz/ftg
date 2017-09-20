@@ -1,0 +1,6 @@
+{
+	"content": "<h1><%- title %></h1>\n\n<div id=\"choicesPanel\" class=\"choicesPanel\"></div>\n<p></p>\n<div id=\"puzzleArea\" class=\"puzzleArea\"></div>\n<p></p>\n<button id=\"checkButton\">Ellenőrzés</button>\n\n<!-- invisible part: -->\n\t<div id=\"dialogTitle\" style=\"display: none;\">Eredmény</div>\n\t<div id=\"dialogOK\" style=\"display: none;\">Rendben</div>\n\t<div id=\"correctMsg\" style=\"display: none;\">Helyes!</div>\n\t<div id=\"errorsMsg\"  style=\"display: none;\">{0} hibás</div>\n\t<div id=\"errorsAndUnfilledMsg\"  style=\"display: none;\">{0} hibás, {1} kitöltetlen</div>\n\t<div id=\"unfilledMsg\"  style=\"display: none;\">{0} kitöltetlen</div>\n",
+	"name": "puzzle-hun",
+	"objectId": "1",
+	"className": "Template"
+}

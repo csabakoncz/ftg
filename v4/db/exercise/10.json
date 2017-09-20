@@ -1,0 +1,10 @@
+{
+  "title": "Az SMS-ek nyelve",
+  "content": "Mobiltelefon nélkül az élet ma már #elképzelhetetlen#. A mobilozók legkedveltebb szolgáltatása az SMS.  72 %-uk fogad vagy küld rövid szöveges üzeneteket, elsősorban a középiskolások. \n\nAz SMS előnye, hogy #gyorsan# célba ér, és hogy nyelvileg #szabadabb#. Hátránya, hogy egy üzenetbe csak 160 karakter fér bele. Emiatt az üzenetek nagyon #tömörek#. \n\nA fiatalok által használt rövidítések mások számára szinte #érthetetlenek#. Gyakran használt rövidítések a .ban (pontban), a +oldás (megoldás) vagy a -zol (hiányzol). Néha a szó eleje és vége nő össze, ilyen alak a naon (nagyon), a mien (milyen) vagy a tnap (tegnap). ",
+  "template": {
+    "_ref": "template/1"
+  },
+  "style": {
+    "_ref": "style/1"
+  }
+}

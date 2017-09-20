@@ -1,0 +1,12 @@
+{
+  "title": "Nyolcvan éves a balatoni viharjelzés",
+  "content": "Szeszélyes és nehezen kiszámítható a Balaton; veszélyes azokra, akik nem ismerik\n\nA kormány Hille Alfréd repülő ezredest bízta meg a viharjelzés megszervezésével, s az ő munkájának eredményeként 1934 nyarán megindulhatott a balatoni viharjelző szolgálat. A több évtizeden keresztül működő jelzőrakétás és viharkosaras rendszert az 1980-as évek közepétõl váltotta fel a számítógép-vezérelt fényjelzõ rendszer, ahol a jelzések kiadása vagy levétele csak néhány másodpercet igényel.Legjobban éppen a fürdõzõk vannak kitéve a szél veszélyeinek. Már 25-30 km/ó széllökések is képesek apró, de porzó hullámokat kelten",
+  "previewWidth": "600",
+  "previewHeight": "400",
+  "template": {
+    "_ref": "template/1"
+  },
+  "style": {
+    "_ref": "style/1"
+  }
+}
