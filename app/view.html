@@ -6,8 +6,6 @@
 <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
-<script src="../v3/parse-latest.js"></script>
-<script src="app.js"></script>
 </head>
 
 <body>
@@ -15,20 +13,9 @@
 	
 	<script type="text/javascript">
 		var main = function() {
-			
-			//ftg_parseInit()
-        Parse.initialize("myAppId", "unused");
-        Parse.serverURL="https://ftg-fushimisi.rhcloud.com/parse";
-
-			//var exId='pokgmohEjB' //get the exId from the query string
-			var exId = location.search.replace('?','')
-			
-			var Exercise = Parse.Object.extend('Exercise')
-			var q = new Parse.Query(Exercise)
-			
-			q.include('template')
-			q.include('style')
-			
+		    var exId = location.search.replace('?','')
+		    
+			downloadDirectly(exId,success);
 			downloadThroughExref(exId, success);
 			
 			function success(object){
@@ -47,40 +34,63 @@
 				$('body').append(puzzleDiv)
 				
 				var template = _.template(object.get('template').get('content'))
-				var templateResultDOM=$(template(object.attributes))
+				var templateResultDOM=$(template(object))
 				$('body').append(templateResultDOM)
 				
-			    gwtBootStrap=$('<script type="text/javascript" language="javascript" src="gwt/ftg/ftg.nocache.js" />')
+			    gwtBootStrap=$('<script type="text/javascript" language="javascript" src="../app/gwt/ftg/ftg.nocache.js" />')
 				
 				$('body').append(gwtBootStrap)
 			}
-			q.get(exId,{success:success,error:function(e){console.log(e)}})
+
 			
 			$('#title').append($('<h1>Exercises</h1>')[0])
 			
-			/**
-			* Class Exref contains old Exercise ids (created on parse.com)
-			* This function searches the exrefs so that we can find the Exercises referenced through old Ids.
-			*/
-			function downloadThroughExref(exId, exSuccess){
-				var Exref = Parse.Object.extend('Exref')
-				var q = new Parse.Query(Exref)
-				
-				q.equalTo("oldId",exId);
-				q.include('exercise');
-				q.include('exercise.template');
-				q.include('exercise.style');
-				
-				function exrefSuccess(hits){
-				    console.log('old ID refs count = %d', hits.length);
-				    if(hits.length>0){
-				        var ex = hits[0].get('exercise');
-				        exSuccess(ex);
-				    }
+			function downloadThroughExref(linkId, success){
+			    getEntity('_link',linkId).then(function(link){
+			        var exId = link._ref.split('/')[1];
+			        downloadDirectly(exId, success);
+			    });
+			}
+			
+			function getEntity(type, id){
+			    return $.get('../v4/db/'+type+'/'+id+'.json')
+			}
+
+			function getDB(ref){
+			    return $.get('../v4/db/'+ref+'.json')
+			}
+
+			function getExcercise(id){
+			    return getEntity('exercise', id);
+			}
+			
+			var ParseObject = {
+				get: function(what){
+				    return this[what];
 				}
-
-				q.find({success:exrefSuccess,error:function(e){console.log('error searching for old exrefs: '+e)}});
-
+			}
+			
+			function createParseObject(src){
+			    var po = Object.create(ParseObject);
+			    _.extend(po,src);
+			    return po;
+			}
+			
+			function downloadDirectly(exId, successCb){
+			    getExcercise(exId)
+			    .then(function(data){
+			        return $.when(data,getDB(data.template._ref),getDB(data.style._ref))
+			    })
+			    .then(function (exercise, template, style){
+			        exercise = createParseObject(exercise);
+			        template = createParseObject(template[0]);
+			        style = createParseObject(style[0]);
+			        
+			        exercise.template=template;
+			        exercise.style=style;
+			        
+			        success(exercise)
+			    });
 			}
 		}
 		$(main)
