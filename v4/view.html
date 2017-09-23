@@ -46,7 +46,7 @@
 			$('#title').append($('<h1>Exercises</h1>')[0])
 			
 			function downloadThroughExref(linkId, success){
-			    getEntity('_link',linkId).then(function(link){
+			    getEntity('link',linkId).then(function(link){
 			        var exId = link._ref.split('/')[1];
 			        downloadDirectly(exId, success);
 			    });
