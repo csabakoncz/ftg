@@ -32,7 +32,7 @@
 					class="form-control" id="objStyle" ng-model='editing.obj.style'
 					ng-change='editingChange()'>
 					<option ng-repeat='style in entityConfig.style.items'
-						value='{{style.id}}' label='{{style.attributes.name}}' />
+						value='{{style.id}}' label='{{style.name}}' />
 				</select> <a ui-sref='style.edit({itemId: editing.obj.style})'
 					ng-hide='!editing.obj.style' class='pull-right'>See it</a>
 			</div>
@@ -41,7 +41,7 @@
 					class="form-control" id="objTemplate"
 					ng-model='editing.obj.template' ng-change='editingChange()'>
 					<option ng-repeat='template in entityConfig.template.items'
-						value='{{template.id}}' label='{{template.attributes.name}}' />
+						value='{{template.id}}' label='{{template.name}}' />
 				</select> <a ui-sref='template.edit({itemId: editing.obj.template})'
 					ng-hide='!editing.obj.template' class='pull-right'>See it</a>
 			</div>

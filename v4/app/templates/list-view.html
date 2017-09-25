@@ -17,7 +17,7 @@
 		<div class='panel panel-default'>
 			<div class='panel-body'>
 				<div ng-repeat="item in items">
-					<a ui-sref='.edit({itemId: item.id})' ng-style="item.dirty()?{'font-weight':'bold'}:{}">{{item.title||item.attributes.title||item.attributes.name}}</a>
+					<a ui-sref='.edit({itemId: item.id})' ng-style="item.dirty()?{'font-weight':'bold'}:{}">{{item.title||item.name}}</a>
 				</div>
 			</div>
 		</div>

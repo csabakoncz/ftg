@@ -39,7 +39,7 @@ define([ '../ngmodule', 'parse', 'underscore' ], function(appModule, Parse, _) {
                     loggerService.errorNonNg('Could not fetch ' + entityClassName + '.\nError code: ' + error.code+' message: '+error.message);
                     console.log(error);
                 }
-            });
+            }, scope);
         };
 
         entityService.fetchObject = function(entityName, objectId, success, error) {

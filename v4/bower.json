@@ -16,7 +16,6 @@
   "dependencies": {
     "angular": "~1.4.6",
     "angular-ui-router": "~0.2.15",
-    "parse": "~1.6.0",
     "jquery.ui": "~1.11.4",
     "bootstrap": "~3.3.5",
     "underscore": "~1.8.3",
