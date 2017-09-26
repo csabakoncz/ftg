@@ -10,17 +10,22 @@ define([ 'underscore', 'jquery' ], function(_, $) {
     
     Parse.User={};
     Parse.User.current=function(){
-        var username = localStorage.getItem('parsemock/currentUser');
-        if(username){
-            return {escape:function(){return username}};
-        }
+        return Parse.User._current;
     }
     Parse.User.logIn=function(username, password, callbackObj){
-        localStorage.setItem('parsemock/currentUser',username);
-        setTimeout(callbackObj.success);
+        var auth="Basic "+btoa(username+':'+password)
+        $.ajax({url:'https://api.github.com/user',headers:{Authorization:auth}}).then(function(userData){
+            var name = userData.name||userData.login;
+            Parse.User._current={
+                    name:name,
+                    auth: auth,
+                    escape:function(){return this.name}
+            };
+            callbackObj.success();
+        }, callbackObj.error);
     }
     Parse.User.logOut=function(){
-        localStorage.removeItem('parsemock/currentUser');
+        delete Parse.User._current;
     }
 
     Parse.Object={};

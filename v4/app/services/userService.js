@@ -14,7 +14,7 @@ define([ '../ngmodule', 'parse' ], function(appModule, Parse) {
                Parse.User.logIn(username, password, {
                    error : function(error) {
                        console.log(error);
-                       alert('Error logging in: code:' + error.code + ', message: ' + error.message)
+                       alert('Error logging in: code:' + error.status + ', message: ' + error.statusText)
                    },
                    success : function(user) {
                        successCallback();
