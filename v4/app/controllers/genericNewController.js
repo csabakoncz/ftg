@@ -25,6 +25,7 @@ define([ '../ngmodule', 'parse' ], function(appModule) {
             $scope.statusInfo('Saving ' + entityInfo);
 
             parseObject.save({
+                newId: $scope.entityCollection.items.length+1,
                 success : function(savedObject) {
                     $scope.$apply(function() {
                         $scope.statusInfo("Creating/Saving succeeded for " + entityInfo);

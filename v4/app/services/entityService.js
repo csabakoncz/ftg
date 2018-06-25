@@ -73,7 +73,7 @@ define([ '../ngmodule', 'parse', 'underscore' ], function(appModule, Parse, _) {
                     fieldValue = fields[field].toEntity(fieldValue);
                 }
                 
-                dst.set(field, fieldValue);
+                dst[field] = fieldValue;
             }
         }
 

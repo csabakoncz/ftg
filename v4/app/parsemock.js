@@ -29,14 +29,41 @@ define([ 'underscore', 'jquery' ], function(_, $) {
     }
 
     Parse.Object={};
-    Parse.Object.extend=function(entityName, config){
+    Parse.Object.extend=function(entityName){
         var constructor = function(){
             this.entityName = entityName;
         };
-        constructor.prototype=config;
+        constructor.prototype=Parse.Object;
         return constructor;
     }
-    
+
+    Parse.Object.save = function(config){
+        var entity=this.entityName.toLowerCase();
+        var stringContent = JSON.stringify(this, null, 2);
+        var fileName = config.newId+'.json';
+        var payload = {
+            message: 'create '+fileName,
+            // branch: 'gh-pages',
+            content: btoa(stringContent)
+        }
+        var auth='n/a'
+        if(Parse.User.current()){
+            auth = Parse.User.current().auth
+        }
+        $.ajax({
+            url: Parse.apiBase+entity+'/'+fileName,
+            data: JSON.stringify(payload, null, 2),
+            method: 'PUT',
+            contentType: 'application/json',
+            headers: {
+                'Authorization': auth
+            }
+        }).then(function(){
+            config.success({
+                id: config.newId
+            })
+        }, config.error)
+    }
    
     Parse.Query=function(entityClass){
         this.entityClass=entityClass;
