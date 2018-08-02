@@ -13,6 +13,10 @@
 	
 	<script type="text/javascript">
 		var main = function() {
+			var dbLocation = 'db/'; //relative
+			//absolute:
+			dbLocation = 'https://csabakoncz.github.io/ftg-data/db/';
+
 		    var exId = location.search.replace('?','')
 		    
 			downloadDirectly(exId,success);
@@ -53,11 +57,11 @@
 			}
 			
 			function getEntity(type, id){
-			    return $.get('db/'+type+'/'+id+'.json')
+			    return $.get(dbLocation + type+'/'+id+'.json')
 			}
 
 			function getDB(ref){
-			    return $.get('db/'+ref+'.json')
+			    return $.get(dbLocation + ref+'.json')
 			}
 
 			function getExcercise(id){

@@ -1,4 +1,4 @@
-define([ '../ngmodule' ], function(appModule) {
+define([ 'parse', 'angular', '../ngmodule' ], function(Parse, angular, appModule) {
 
     var basicEditController = function($scope, $stateParams, objectService, $state, entityService, entityConfig, loggerService, $document) {
         var entityCollection = $scope.entityCollection;
@@ -51,7 +51,27 @@ define([ '../ngmodule' ], function(appModule) {
         $scope.save = function() {
             $scope.statusInfo('Saving ' + entityInfo);
 
-            $scope.editing.original.save({
+            var ParseClass  = Parse.Object.extend(entityKind);
+            var parseObj = new ParseClass();
+
+            entityService.copyFieldsToEntity($scope.editing.obj, parseObj, $scope.entityCollection.fields);
+
+            var objId = $scope.editing.original.id;
+            parseObj.id = objId;
+
+            //with github, we need the hash of the current version:
+            var sha;
+            if(angular.isArray($scope.items)){
+                var repoItem = $scope.items.filter(function(item){
+                    return item.id == objId
+                })[0];
+                if(repoItem){
+                    sha = repoItem.sha;
+                }
+            }
+
+            parseObj.save({
+                sha: sha,
                 success : function() {
                     loggerService.infoNonNg("Saving succeeded for " + entityInfo);
                     $scope.refreshPreview();

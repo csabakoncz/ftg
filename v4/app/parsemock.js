@@ -1,7 +1,7 @@
 define([ 'underscore', 'jquery' ], function(_, $) {
     var Parse={};
-    Parse.baseUrl='https://csabakoncz.github.io/ftg/v4/db/';
-    Parse.apiBase='https://api.github.com/repos/csabakoncz/ftg/contents/v4/db/'
+    Parse.baseUrl='https://csabakoncz.github.io/ftg-data/db/';
+    Parse.apiBase='https://api.github.com/repos/csabakoncz/ftg-data/contents/db/'
    
     
     Parse.initialize=function(a,b){
@@ -39,17 +39,29 @@ define([ 'underscore', 'jquery' ], function(_, $) {
 
     Parse.Object.save = function(config){
         var entity=this.entityName.toLowerCase();
-        var stringContent = JSON.stringify(this, null, 2);
-        var fileName = config.newId+'.json';
+        var stringContent = b64EncodeUnicode(JSON.stringify(this, null, 2));
+
+        var objId = config.newId? config.newId: this.id;
+        var fileName = objId + '.json';
+    
         var payload = {
-            message: 'create '+fileName,
             // branch: 'gh-pages',
-            content: btoa(stringContent)
+            content: stringContent
         }
+
+        if(config.sha){
+            payload.sha = config.sha;
+            payload.message = 'update '+ fileName;
+        }
+        else{
+            payload.message = 'create '+ fileName;
+        }
+
         var auth='n/a'
         if(Parse.User.current()){
             auth = Parse.User.current().auth
         }
+        
         $.ajax({
             url: Parse.apiBase+entity+'/'+fileName,
             data: JSON.stringify(payload, null, 2),
@@ -60,10 +72,15 @@ define([ 'underscore', 'jquery' ], function(_, $) {
             }
         }).then(function(){
             config.success({
-                id: config.newId
+                id: objId
             })
         }, config.error)
     }
+   
+    Parse.Object.get=function(what){
+        return this[what];
+    };
+    
    
     Parse.Query=function(entityClass){
         this.entityClass=entityClass;
@@ -104,4 +121,22 @@ define([ 'underscore', 'jquery' ], function(_, $) {
     };
     
     return Parse;
+
+    function b64EncodeUnicode(str) {
+        // first we use encodeURIComponent to get percent-encoded UTF-8,
+        // then we convert the percent encodings into raw bytes which
+        // can be fed into btoa.
+        return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+            function toSolidBytes(match, p1) {
+                return String.fromCharCode('0x' + p1);
+        }));
+    }
+
+    function b64DecodeUnicode(str) {
+        // Going backwards: from bytestream, to percent-encoding, to original string.
+        return decodeURIComponent(atob(str).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    }
+
 });
