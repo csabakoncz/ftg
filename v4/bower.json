@@ -19,6 +19,7 @@
     "jquery.ui": "~1.11.4",
     "bootstrap": "~3.3.5",
     "underscore": "~1.8.3",
-    "angular-bootstrap": "~0.13.4"
+    "angular-bootstrap": "~0.13.4",
+    "js-yaml": "^3.12.0"
   }
 }

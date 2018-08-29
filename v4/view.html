@@ -3,9 +3,11 @@
 <head>
 <meta charset="utf-8">
 <title>FTG Exercises</title>
+
 <script src="bower_components/jquery/dist/jquery.js"></script>
-<script
-	src="bower_components/underscore/underscore.js"></script>
+<script	src="bower_components/underscore/underscore.js"></script>
+<script	src="bower_components/js-yaml/dist/js-yaml.js"></script>
+
 </head>
 
 <body>
@@ -21,7 +23,7 @@
 		    
 			downloadDirectly(exId,success);
 			downloadThroughExref(exId, success);
-			
+
 			function success(object){
 				exercise=object
 				document.title=object.get('title')
@@ -57,11 +59,33 @@
 			}
 			
 			function getEntity(type, id){
-			    return $.get(dbLocation + type+'/'+id+'.json')
+			    return getDB(type+'/'+id);
+			}
+
+			function withExtension(id){
+				if(id.split('.').length > 1){
+					return  id;
+				}
+				else{
+					return id+'.json';
+				}
 			}
 
 			function getDB(ref){
-			    return $.get(dbLocation + ref+'.json')
+				var uri = dbLocation + withExtension(ref)
+
+			    return $.get(uri).then(function(dbValue){
+					if(isYaml(uri) && typeof dbValue == 'string'){
+						return jsyaml.load(dbValue)
+					}
+					else{
+						return dbValue
+					}
+				});
+			}
+
+			function isYaml(uri){
+				return /\.yaml$/.test(uri)
 			}
 
 			function getExcercise(id){
@@ -87,8 +111,8 @@
 			    })
 			    .then(function (exercise, template, style){
 			        exercise = createParseObject(exercise);
-			        template = createParseObject(template[0]);
-			        style = createParseObject(style[0]);
+			        template = createParseObject(template);
+			        style = createParseObject(style);
 			        
 			        exercise.template=template;
 			        exercise.style=style;
