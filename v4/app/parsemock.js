@@ -1,4 +1,4 @@
-define([ 'underscore', 'jquery' ], function(_, $) {
+define([ 'underscore', 'jquery', 'jsyaml'], function(_, $, jsyaml) {
     var Parse={};
     Parse.baseUrl='https://csabakoncz.github.io/ftg-data/db/';
     Parse.apiBase='https://api.github.com/repos/csabakoncz/ftg-data/contents/db/'
@@ -92,7 +92,8 @@ define([ 'underscore', 'jquery' ], function(_, $) {
     
     Parse.Query.prototype.get=function(objId,cbObj){
         var entity=this.entityClass.toLowerCase();
-        $.get(Parse.baseUrl+entity+'/'+objId+'.json').then(function(response){
+        $.get(Parse.baseUrl+entity+'/'+objId+'.yaml').then(function(response){
+            response = jsyaml.load(response)
             response.id=objId;
             //add a Parse-like get function:
             response.get=function(what){
@@ -102,15 +103,30 @@ define([ 'underscore', 'jquery' ], function(_, $) {
         },cbObj.error);
     };
 
+    function isYaml(uri){
+        return /\.yaml$/.test(uri)
+    }
+
     Parse.Query.prototype.find = function(cbObj, scope){
         //run query
         console.log('Query.find for '+JSON.stringify(this,null,2))
         var entity=this.entityClass.toLowerCase();
         $.get(Parse.apiBase+entity).then(function(response){
+
+            //filter only a certain kind:
+            response = response.filter(function(r){
+                // return /\.json/.test(r.name)
+                return /\.yaml/.test(r.name)
+            })
+            
             cbObj.success(response)
             response.forEach(function(r){
                 r.id=r.name.split('.')[0];
-                $.get(Parse.baseUrl+entity+'/'+r.name).then(function(content){
+                var uri = Parse.baseUrl+entity+'/'+r.name
+                $.get(uri).then(function(content){
+                    if(isYaml(uri) && typeof content == 'string'){
+						content = jsyaml.load(content)
+					}
                     scope.$apply(function(){
                         _.extend(r,content);
                     })
