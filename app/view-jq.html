@@ -4,6 +4,22 @@
 <meta charset="utf-8">
 <title>FTG Exercises</title>
 
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style type="text/css">
+body, table td, select, button {
+  font-family: Arial Unicode MS, Arial, sans-serif;
+  /* font-size: small; */
+}
+body {
+	font-size: medium;
+}
+.pad5{
+	padding-left: 2em;
+	padding-right: 3em;
+}
+</style>
+
+
 <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.12.0/js-yaml.min.js"></script>
@@ -47,13 +63,26 @@
 			    // gwtBootStrap=$('<script type="text/javascript" language="javascript" src="../app/gwt/ftg/ftg.nocache.js" />')
 				// $('body').append(gwtBootStrap)
 
-				var r=/#([^#]+)#/g
-				var s=$('#text')[0].innerText
-				s.match(r).forEach(m=>$('#choicesPanel').append($('<span class="choice">'+m+'</span>')))
-				$('.choice').draggable()
+				createPuzzle()
 			}
 
-			
+			function createPuzzle(){
+				var r=/#([^#]+)#/g
+				var s=$('#text')[0].innerText
+				s.match(r).forEach(m=>$('#choicesPanel').append($('<span class="choice choiceWord">'+m+'</span>')))
+				$('.choice').draggable({
+					revert: 'invalid'
+				})
+
+				var s2 = s.replace(r,'<span class="gapPanel pad5">&nbsp;</span>')
+				$('#puzzleArea').html(s2)
+				$('.gapPanel').droppable({
+					drop: function(event, ui){
+						$(this).html(ui.draggable.html())
+					}
+				})
+			}					
+
 			$('#title').append($('<h1>Exercises</h1>')[0])
 			
 			function downloadThroughExref(linkId, success){
