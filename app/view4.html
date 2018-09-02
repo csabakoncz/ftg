@@ -3,9 +3,11 @@
 <head>
 <meta charset="utf-8">
 <title>FTG Exercises</title>
+
 <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.12.0/js-yaml.min.js"></script>
+
 </head>
 
 <body>
@@ -13,11 +15,15 @@
 	
 	<script type="text/javascript">
 		var main = function() {
+			var dbLocation = 'db/'; //relative
+			//absolute:
+			dbLocation = 'https://csabakoncz.github.io/ftg-data/db/';
+
 		    var exId = location.search.replace('?','')
 		    
 			downloadDirectly(exId,success);
 			downloadThroughExref(exId, success);
-			
+
 			function success(object){
 				exercise=object
 				document.title=object.get('title')
@@ -53,11 +59,34 @@
 			}
 			
 			function getEntity(type, id){
-			    return $.get('../v4/db/'+type+'/'+id+'.json')
+			    return getDB(type+'/'+id);
+			}
+
+			function withExtension(id){
+				if(id.split('.').length > 1){
+					return  id;
+				}
+				else{
+					// return id+'.json';
+					return id+'.yaml';
+				}
 			}
 
 			function getDB(ref){
-			    return $.get('../v4/db/'+ref+'.json')
+				var uri = dbLocation + withExtension(ref)
+
+			    return $.get(uri).then(function(dbValue){
+					if(isYaml(uri) && typeof dbValue == 'string'){
+						return jsyaml.load(dbValue)
+					}
+					else{
+						return dbValue
+					}
+				});
+			}
+
+			function isYaml(uri){
+				return /\.yaml$/.test(uri)
 			}
 
 			function getExcercise(id){
@@ -83,8 +112,8 @@
 			    })
 			    .then(function (exercise, template, style){
 			        exercise = createParseObject(exercise);
-			        template = createParseObject(template[0]);
-			        style = createParseObject(style[0]);
+			        template = createParseObject(template);
+			        style = createParseObject(style);
 			        
 			        exercise.template=template;
 			        exercise.style=style;
