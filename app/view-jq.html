@@ -71,7 +71,8 @@ body {
 				var s=$('#text')[0].innerText
 				s.match(r).forEach(m=>$('#choicesPanel').append($('<span class="choice choiceWord">'+m+'</span>')))
 				$('.choice').draggable({
-					revert: 'invalid'
+					revert: 'invalid',
+					cursor: 'crosshair'
 				})
 
 				var s2 = s.replace(r,'<span class="gapPanel pad5">&nbsp;</span>')
