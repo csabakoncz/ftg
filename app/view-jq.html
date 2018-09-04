@@ -72,12 +72,12 @@ body {
 				var choices = exText.match(choiceReg).map(function(choice){
 					//strip the hashmarks:
 					var res = /^#([^#]*)#$/.exec(choice)
-					console.log(choice,res) 
+					// console.log(choice,res)
 					return res[1];
 				})
 				
 				choices.forEach( function(m){
-					var choiceE = $('<span class="choice choiceWord">'+m+'</span>')
+					var choiceE = $('<span class="choice choiceWord correctWord">'+m+'</span>')
 					$('#choicesPanel').append(choiceE)
 				});
 
@@ -86,11 +86,23 @@ body {
 					cursor: 'crosshair'
 				})
 
-				var puzzleText = exText.replace(choiceReg,'<span class="gapPanel pad5">&nbsp;</span>')
+				var puzzleText = exText.replace(choiceReg,'<span class="gapPanel pad5"></span>')
 				$('#puzzleArea').html(puzzleText)
 				$('.gapPanel').droppable({
 					drop: function(event, ui){
-						$(this).html(ui.draggable.html())
+						$(this).removeClass('pad5')
+
+						$(this).find('.guess').remove()
+						var guess=$('<span class="correctWord guess"></span>')
+						guess.html(ui.draggable.html())
+						$(this).append(guess)
+						
+						var oldGuess = $(this).data('guess')
+						if(oldGuess){
+							oldGuess.css({visibility:'', top: '0px', left: '0px'})
+						}
+						$(this).data('guess', ui.draggable)
+						ui.draggable.css({visibility:'hidden'})
 					}
 				})
 			}					
