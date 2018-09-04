@@ -67,16 +67,27 @@ body {
 			}
 
 			function createPuzzle(){
-				var r=/#([^#]+)#/g
-				var s=$('#text')[0].innerText
-				s.match(r).forEach(m=>$('#choicesPanel').append($('<span class="choice choiceWord">'+m+'</span>')))
+				var choiceReg=/#([^#]*)#/g
+				var exText=$('#text')[0].innerText
+				var choices = exText.match(choiceReg).map(function(choice){
+					//strip the hashmarks:
+					var res = /^#([^#]*)#$/.exec(choice)
+					console.log(choice,res) 
+					return res[1];
+				})
+				
+				choices.forEach( function(m){
+					var choiceE = $('<span class="choice choiceWord">'+m+'</span>')
+					$('#choicesPanel').append(choiceE)
+				});
+
 				$('.choice').draggable({
 					revert: 'invalid',
 					cursor: 'crosshair'
 				})
 
-				var s2 = s.replace(r,'<span class="gapPanel pad5">&nbsp;</span>')
-				$('#puzzleArea').html(s2)
+				var puzzleText = exText.replace(choiceReg,'<span class="gapPanel pad5">&nbsp;</span>')
+				$('#puzzleArea').html(puzzleText)
 				$('.gapPanel').droppable({
 					drop: function(event, ui){
 						$(this).html(ui.draggable.html())
