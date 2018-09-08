@@ -68,7 +68,7 @@ body {
 
 			function createPuzzle(){
 				var choiceReg=/#([^#]*)#/g
-				var exText=$('#text')[0].innerText
+				var exText=$('#text').html()
 				var choices = exText.match(choiceReg).map(function(choice){
 					//strip the hashmarks:
 					var res = /^#([^#]*)#$/.exec(choice)
