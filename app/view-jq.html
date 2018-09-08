@@ -81,6 +81,15 @@ body {
 					$('#choicesPanel').append(choiceE)
 				});
 
+				$('#choicesPanel').droppable({
+					accept: '.guess',
+					drop: function(event, ui){
+						ui.draggable.data('originalGuess').css({visibility:'', top: '0px', left: '0px'})
+						ui.draggable.data('owner').addClass('pad5')
+						ui.draggable.remove()
+					}
+				})
+
 				$('.choice').draggable({
 					revert: 'invalid',
 					cursor: 'crosshair'
