@@ -17,6 +17,9 @@ body {
 	padding-left: 2em;
 	padding-right: 3em;
 }
+.gap-hover {
+  border-bottom-width: 4px !important
+}
 </style>
 
 
@@ -98,6 +101,9 @@ body {
 				var puzzleText = exText.replace(choiceReg,'<span class="gapPanel pad5"></span>')
 				$('#puzzleArea').html(puzzleText)
 				$('.gapPanel').droppable({
+					classes: {
+						"ui-droppable-hover": "gap-hover"
+					},
 					drop: function(event, ui){
 						$(this).removeClass('pad5')
 
