@@ -13,7 +13,7 @@ define([ 'parse', 'angular', '../ngmodule' ], function(Parse, angular, appModule
         var successCallback = function(result) {
             $scope.$apply(function() {
                 $scope.editing.original = result;
-                $scope.viewLink = 'view.html?' + result.id;
+                $scope.viewLink = '../app/view-jq.html?' + result.id;
                 
                 entityService.copyFieldsFromEntity(result, $scope.editing.obj, entityCollection.fields);
 
