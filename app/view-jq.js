@@ -54,7 +54,9 @@ var main = function () {
         $('#choicesPanel').droppable({
             accept: '.guess',
             drop: function (event, ui) {
-                ui.draggable.data('originalGuess').css({ visibility: '', top: '0px', left: '0px' })
+                var origGuess = ui.draggable.data('originalGuess')
+                restorePosition(origGuess)
+                reveal(origGuess);
                 ui.draggable.data('owner').addClass('pad5')
                 ui.draggable.remove()
             }
@@ -72,11 +74,17 @@ var main = function () {
                 "ui-droppable-hover": "gap-hover"
             },
             drop: function (event, ui) {
-                $(this).removeClass('pad5')
-
+                
                 var originalGuess = ui.draggable.data('originalGuess')
                 var dropped = originalGuess || ui.draggable
-
+                
+                if(dropped==$(this).data('guess')){
+                    //self drop:
+                    restorePosition(ui.draggable)
+                    return
+                }
+                
+                $(this).removeClass('pad5')
                 $(this).find('.guess').remove()
                 var guess = $('<span class="correctWord guess"></span>')
                 guess.html(dropped.html())
@@ -90,10 +98,11 @@ var main = function () {
 
                 var oldGuess = $(this).data('guess')
                 if (oldGuess) {
-                    oldGuess.css({ visibility: '', top: '0px', left: '0px' })
+                    reveal(oldGuess)
+                    restorePosition(oldGuess)
                 }
                 $(this).data('guess', dropped)
-                dropped.css({ visibility: 'hidden' })
+                hide(dropped)
                 if (originalGuess) {
                     //restore the dashes on the owner:
                     ui.draggable.data('owner').addClass('pad5')
@@ -103,6 +112,16 @@ var main = function () {
                 }
             }
         })
+
+        function restorePosition(draggable){
+            draggable.css({ visibility: '', top: '0px', left: '0px' })
+        }
+        function reveal(e){
+            e.css({ visibility: ''})
+        }
+        function hide(e){
+            e.css({ visibility: 'hidden'})
+        }
 
         $('#checkButton').on('click', function () {
             var choiceCount = choices.length;
