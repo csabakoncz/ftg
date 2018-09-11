@@ -45,7 +45,8 @@ var main = function () {
             return res[1];
         })
 
-        choices.forEach(function (m) {
+        var sortedChoices = [].concat(choices).sort()
+        sortedChoices.forEach(function (m) {
             var choiceE = $('<span class="choice choiceWord correctWord">' + m + '</span>')
             $('#choicesPanel').append(choiceE)
         });
@@ -96,6 +97,7 @@ var main = function () {
                 if (originalGuess) {
                     //restore the dashes on the owner:
                     ui.draggable.data('owner').addClass('pad5')
+                    ui.draggable.data('owner').removeData('guess')
                     //this is something that has already been dropped, delete it
                     ui.draggable.remove()
                 }
@@ -103,14 +105,42 @@ var main = function () {
         })
 
         $('#checkButton').on('click', function () {
+            var choiceCount = choices.length;
+            var i;
+            
+            var errorCount=0;
+            var unfilledCount = 0;
+            var gaps = $('#puzzleArea').find('.gapPanel');
+            for(i=0; i<choiceCount; i++){
+                var guess = $(gaps[i]).find('.guess')
+                if(guess.length==0){
+                    unfilledCount++;
+                }
+                else{
+                    if(guess.html()!==choices[i]){
+                        errorCount++;
+                        guess.removeClass('correctWord')
+                        guess.addClass('incorrectWord')
+                    }
+                }
+            }
+
             var dialog = $('<div></div>')
             
+            var message;
+
+            if(errorCount==0 && unfilledCount==0){
+                message = $('#correctMsg').html()
+            }
+            else if(unfilledCount==0){
+                message = template('#errorsMsg')({_0:errorCount})
+            }
+            else{
+                message = template('#errorsAndUnfilledMsg')({_0:errorCount, _1:unfilledCount})
+            }
+
             dialog.html(
-                $('#correctMsg').html()
-                +'<br>'+
-                template('#errorsMsg')({_0:5})
-                +'<br>'+
-                template('#errorsAndUnfilledMsg')({_0:5, _1:6})
+                message
             )
             
             var dialogOpts = {
