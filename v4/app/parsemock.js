@@ -39,10 +39,10 @@ define([ 'underscore', 'jquery', 'jsyaml'], function(_, $, jsyaml) {
 
     Parse.Object.save = function(config){
         var entity=this.entityName.toLowerCase();
-        var stringContent = b64EncodeUnicode(JSON.stringify(this, null, 2));
+        var stringContent = b64EncodeUnicode(jsyaml.safeDump(this, {skipInvalid:true}));
 
         var objId = config.newId? config.newId: this.id;
-        var fileName = objId + '.json';
+        var fileName = objId + '.yaml';
     
         var payload = {
             // branch: 'gh-pages',
@@ -51,10 +51,10 @@ define([ 'underscore', 'jquery', 'jsyaml'], function(_, $, jsyaml) {
 
         if(config.sha){
             payload.sha = config.sha;
-            payload.message = 'update '+ fileName;
+            payload.message = 'update '+ entity + ' ' +fileName;
         }
         else{
-            payload.message = 'create '+ fileName;
+            payload.message = 'create '+ entity + ' '+ fileName;
         }
 
         var auth='n/a'
