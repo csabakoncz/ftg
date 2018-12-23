@@ -61,18 +61,23 @@ define([ 'parse', 'angular', '../ngmodule' ], function(Parse, angular, appModule
 
             //with github, we need the hash of the current version:
             var sha;
+            var repoItem;
             if(angular.isArray($scope.items)){
-                var repoItem = $scope.items.filter(function(item){
+                repoItem = $scope.items.filter(function(item){
                     return item.id == objId
                 })[0];
-                if(repoItem){
-                    sha = repoItem.sha;
-                }
+            }
+
+            if(repoItem){
+                sha = repoItem.sha;
             }
 
             parseObj.save({
                 sha: sha,
-                success : function() {
+                success : function(result) {
+                    if(repoItem){
+                        repoItem.sha = result.sha;
+                    }
                     loggerService.infoNonNg("Saving succeeded for " + entityInfo);
                     $scope.refreshPreview();
                 },

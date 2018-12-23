@@ -70,9 +70,10 @@ define([ 'underscore', 'jquery', 'jsyaml'], function(_, $, jsyaml) {
             headers: {
                 'Authorization': auth
             }
-        }).then(function(){
+        }).then(function(data){
             config.success({
-                id: objId
+                id: objId,
+                sha: data.content.sha
             })
         }, config.error)
     }

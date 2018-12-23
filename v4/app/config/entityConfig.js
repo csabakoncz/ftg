@@ -37,22 +37,22 @@ define([ '../ngmodule' ], function(appModule) {
             content : '',
             style : {
                 toEntity : function(val) {
-                    var e = new entityConfig.style.eclass();
-                    e.id = val;
-                    return e;
+                    return {
+                        _ref: 'style/'+val
+                    };
                 },
                 fromEntity : function(e) {
-                    return e.id;
+                    return e._ref.split('/')[1];
                 }
             },
             template : {
                 toEntity : function(val) {
-                    var e = new entityConfig.template.eclass();
-                    e.id = val;
-                    return e;
+                    return {
+                        _ref: 'template/'+val
+                    };
                 },
                 fromEntity : function(e) {
-                    return e.id;
+                    return e._ref.split('/')[1];
                 }
             },
             previewWidth:'600',
