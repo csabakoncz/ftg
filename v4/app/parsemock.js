@@ -2,18 +2,23 @@ define([ 'underscore', 'jquery', 'jsyaml'], function(_, $, jsyaml) {
     var Parse={};
     Parse.baseUrl='https://csabakoncz.github.io/ftg-data/db/';
     Parse.apiBase='https://api.github.com/repos/csabakoncz/ftg-data/contents/db/'
-   
-    
+
+
     Parse.initialize=function(a,b){
         console.log('invoked Paser.initialize')
     }
-    
+
     Parse.User={};
     Parse.User.current=function(){
         return Parse.User._current;
     }
     Parse.User.logIn=function(username, password, callbackObj){
-        var auth="Basic "+btoa(username+':'+password)
+        // var auth="Basic "+btoa(username+':'+password)
+        var auth=localStorage.getItem('t')
+        if(!auth){
+            console.log('auth token not found in local storage')
+            return
+        }
         $.ajax({url:'https://api.github.com/user',headers:{Authorization:auth}}).then(function(userData){
             var name = userData.name||userData.login;
             Parse.User._current={
@@ -25,6 +30,7 @@ define([ 'underscore', 'jquery', 'jsyaml'], function(_, $, jsyaml) {
         }, callbackObj.error);
     }
     Parse.User.logOut=function(){
+        localStorage.removeItem('t')
         delete Parse.User._current;
     }
 
@@ -43,7 +49,7 @@ define([ 'underscore', 'jquery', 'jsyaml'], function(_, $, jsyaml) {
 
         var objId = config.newId? config.newId: this.id;
         var fileName = objId + '.yaml';
-    
+
         var payload = {
             // branch: 'gh-pages',
             content: stringContent
@@ -61,7 +67,7 @@ define([ 'underscore', 'jquery', 'jsyaml'], function(_, $, jsyaml) {
         if(Parse.User.current()){
             auth = Parse.User.current().auth
         }
-        
+
         $.ajax({
             url: Parse.apiBase+entity+'/'+fileName,
             data: JSON.stringify(payload, null, 2),
@@ -77,20 +83,20 @@ define([ 'underscore', 'jquery', 'jsyaml'], function(_, $, jsyaml) {
             })
         }, config.error)
     }
-   
+
     Parse.Object.get=function(what){
         return this[what];
     };
-    
-   
+
+
     Parse.Query=function(entityClass){
         this.entityClass=entityClass;
     };
-    
+
     Parse.Query.prototype.select = function(fields){
-      this.selectedFields = fields;  
+      this.selectedFields = fields;
     };
-    
+
     Parse.Query.prototype.get=function(objId,cbObj){
         var entity=this.entityClass.toLowerCase();
         $.get(Parse.baseUrl+entity+'/'+objId+'.yaml').then(function(response){
@@ -119,7 +125,7 @@ define([ 'underscore', 'jquery', 'jsyaml'], function(_, $, jsyaml) {
                 // return /\.json/.test(r.name)
                 return /\.yaml/.test(r.name)
             })
-            
+
             cbObj.success(response)
             response.forEach(function(r){
                 r.id=r.name.split('.')[0];
@@ -136,7 +142,7 @@ define([ 'underscore', 'jquery', 'jsyaml'], function(_, $, jsyaml) {
            }
         ,cbObj.error);
     };
-    
+
     return Parse;
 
     function b64EncodeUnicode(str) {

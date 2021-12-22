@@ -16,7 +16,8 @@ define([ '../ngmodule' ], function(appModule) {
         $scope.updateUserInfoNonAngular = function() {
             $scope.$apply($scope.updateUserInfo);
         }
-        $scope.updateUserInfo();
+
+        userService.login(null,null,$scope.updateUserInfoNonAngular)
 
         $scope.editing = {};
 

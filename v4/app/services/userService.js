@@ -6,7 +6,7 @@ define([ '../ngmodule', 'parse' ], function(appModule, Parse) {
                userInfoStorage.user = user;
                userInfoStorage.username = '';
                if(user){
-                   userInfoStorage.username = user.escape('username'); 
+                   userInfoStorage.username = user.escape('username');
                }
            },
 
@@ -14,17 +14,17 @@ define([ '../ngmodule', 'parse' ], function(appModule, Parse) {
                Parse.User.logIn(username, password, {
                    error : function(error) {
                        console.log(error);
-                       alert('Error logging in: code:' + error.status + ', message: ' + error.statusText)
+                       console.error('Error logging in: code:' + error.status + ', message: ' + error.statusText)
                    },
                    success : function(user) {
                        successCallback();
                    }
                });
            },
-           
+
            logout:function(){
                Parse.User.logOut();
            }
-       } 
+       }
     });
 });
